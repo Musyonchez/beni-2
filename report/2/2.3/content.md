@@ -1,5 +1,0 @@
-# 2.3 Regional Perspective
-
-In the African context, digital transformation is steadily expanding due to increased smartphone penetration and internet accessibility. However, the integration of smart navigation systems in universities remains limited. Most institutions continue to rely on printed maps, signage, or orientation programs to guide new students and visitors. While some African universities have adopted e-learning platforms and digital communication tools, fewer have invested in specialized navigation systems.
-
-Research shows that one of the main barriers to the adoption of campus-specific navigation applications in Africa is the cost of implementation and maintenance, as well as limited technical expertise in some institutions. Nonetheless, as the concept of "smart campuses" gains ground, more universities are beginning to explore the integration of digital solutions for navigation, safety, and administrative services. This provides an opportunity for USIU-A, a technology-driven institution, to pioneer a campus navigation application that can serve as a model for other universities in the region.
