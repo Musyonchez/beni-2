@@ -1,0 +1,11 @@
+# 5.1.7 Sequence Diagram
+
+A sequence diagram is a type of interaction diagram used in system design to show how objects and components interact with each other over time. It focuses on the order of messages exchanged between different entities in a system to accomplish a specific function or process. Sequence diagrams are particularly useful in visualizing dynamic behaviors such as user actions, system responses, and data exchanges. In the Campus Navigation System, the sequence diagram demonstrates how users — including students, visitors, and administrators — interact with the system to perform tasks like searching for locations, generating navigation routes, and updating campus data. It helps designers and developers understand the timing and flow of operations, ensuring that each process occurs in a logical and efficient order.
+
+> [Figure 20: Sequence Diagram]
+
+Figure 20 shows the sequence diagram for the Campus Navigation System that illustrates the step-by-step flow of interactions between key components, including the User, System Interface, Navigation Controller, Database, and Admin. The process begins when a User initiates an action such as searching for a specific campus location or requesting navigation assistance. The System Interface captures this request and forwards it to the Navigation Controller, which handles the main logic of the operation. The Navigation Controller then interacts with the Database to retrieve relevant data — for example, location details, building coordinates, or stored routes.
+
+Once the data is retrieved, the Navigation Controller processes the information and generates the required navigation route, which is then sent back through the System Interface for display to the User. For administrative tasks, the Admin actor may initiate operations like adding new locations or updating existing campus details, which follow a similar interaction pattern involving data verification and database updates.
+
+Overall, the sequence diagram captures the real-time interaction between users and the system, clearly showing how requests flow through various components to produce accurate and timely responses. It ensures that every function — from user login to navigation route generation — is executed in the correct sequence, promoting system reliability and user satisfaction.
