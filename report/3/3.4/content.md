@@ -1,0 +1,5 @@
+# 3.4 Conclusion
+
+This chapter has outlined the aims and objectives that will guide the development of the proposed campus navigation system for United States International University – Africa (USIU-A). The general aim of the study was established as the creation of a mobile-based solution to address the inefficiencies and challenges of campus navigation. This broad aim was then broken down into specific objectives that focus on identifying the navigation challenges, designing the system architecture, developing and testing a functional prototype, and finally evaluating and documenting the application.
+
+The formulation of these aims and objectives provides a structured roadmap for the project. They ensure that each stage of the research and development process remains aligned with the central problem identified in Chapter One while also laying the groundwork for the practical design and implementation strategies to follow. Furthermore, the objectives highlight the project's emphasis on user-centered design, technical robustness, and sustainability, ensuring that the final solution is both effective and adaptable.
