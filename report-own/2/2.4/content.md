@@ -1,0 +1,3 @@
+# 2.4 Local Perspective
+
+In Kenya, the food service landscape has been shaped significantly by the rapid growth of mobile money and delivery platforms, with M-Pesa integration normalising cashless transactions even at small food vendors. However, this commercial progress has not translated meaningfully into university cafeteria operations. Kenyan universities, including some of the country's most digitally progressive institutions, continue to rely on manual queuing and cash payment in their cafeterias. The following two local examples illustrate both the current state of university food service in Kenya and the limited steps that have been taken toward digitisation.

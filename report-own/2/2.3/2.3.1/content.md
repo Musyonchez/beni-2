@@ -1,0 +1,10 @@
+# 2.3.1 UCT Campus Dining / Hungry Rhino (University of Cape Town, South Africa)
+
+The University of Cape Town (UCT) partnered with Hungry Rhino, a South African food tech platform, to introduce web-based pre-ordering for selected campus dining facilities. Through the system, students can browse the menu for participating dining halls, place orders for a designated collection slot, and pay online before arriving. The platform was designed specifically to address peak-hour queuing on UCT's busy urban campus, where dining facilities serve a large student body in constrained physical spaces. By allowing students to pre-select their meal and collection time, the system reduces counter wait times and gives kitchen staff advance notice of demand for each slot.
+
+> [Figure 5: UCT Hungry Rhino — menu browsing screen with collection slot selection]
+> [Figure 6: UCT Hungry Rhino — order confirmation and pickup time summary screen]
+
+The UCT Hungry Rhino system is the closest regional analogue to the system proposed in this project. It demonstrates that pre-ordering with fixed collection slots is a viable and effective approach to reducing cafeteria congestion in an African university setting. The advance demand visibility it provides to kitchen staff is particularly relevant — cafeteria teams at UCT reported improvements in preparation planning after the system was introduced.
+
+The system's limitations are informative. Being web-based, it does not offer a native mobile experience with push notifications, meaning students must proactively check their order status rather than being alerted when food is ready. It also does not include a persistent digital wallet — payment is processed per transaction through a third-party payment gateway, adding friction compared to a stored balance. Recurring scheduled orders are not supported. For the USIU Cafeteria Ordering System, the UCT model validates the core pre-ordering concept while pointing to push notifications, an in-app wallet, and recurring scheduling as meaningful improvements that a native Android application can deliver.

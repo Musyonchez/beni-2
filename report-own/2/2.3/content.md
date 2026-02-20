@@ -1,0 +1,5 @@
+# 2.3 Regional Perspective
+
+Across Africa, digital transformation in food service has been largely driven by commercial delivery platforms — Jumia Food, Glovo, and similar services have demonstrated strong mobile ordering adoption in major cities including Nairobi, Lagos, and Cape Town. However, the translation of these commercial models into institutional settings, particularly university cafeterias, has been slow. Most African universities continue to operate cafeteria services on fully manual processes, with cash transactions, physical queuing, and no digital interface between students and food service staff.
+
+The barriers to adoption are both financial and technical: purpose-built institutional food ordering platforms require ongoing maintenance, reliable internet infrastructure, and staff training. Nonetheless, several regional institutions have taken steps toward digitising aspects of their food service, offering useful models from which the USIU Cafeteria Ordering System can draw lessons about what is feasible and effective in the African university context.
