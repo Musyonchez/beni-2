@@ -1,0 +1,7 @@
+# 4.6 Conclusion
+
+This chapter has presented the methodology to be used in the design and development of the USIU Cafeteria Ordering System, a native Android application designed to eliminate physical queuing, enable advance meal scheduling, and introduce cashless wallet-based payment for USIU-Africa students. The work has been structured into three phases — Research and Design, System Development, and Testing and Reporting — each with well-defined objectives, tasks, and deliverables. The program of work and corresponding Gantt chart illustrate the 13-week timeline, task dependencies, and project milestones, ensuring that the project progresses in a systematic and manageable way.
+
+The requirements and design artifacts produced in Phase 1 will provide a complete blueprint before any code is written, reducing rework and ensuring the implementation remains aligned with the identified problems. Phase 2 builds the system incrementally — Firebase infrastructure first, then student screens, then staff screens, then Cloud Functions — so that each layer is validated before the next depends on it. Phase 3 validates the complete system against all 20 test cases and real user feedback before final submission.
+
+The following chapter translates the design artifacts described here into a detailed system analysis, presenting the architecture, diagrams, data model, and requirements that will guide the implementation.
