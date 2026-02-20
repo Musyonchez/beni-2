@@ -1,0 +1,7 @@
+# CHAPTER ONE: INTRODUCTION
+
+University cafeterias are high-traffic service points that must serve large numbers of students within narrow time windows — particularly the short breaks between lectures. United States International University – Africa (USIU-A), as a dynamic and growing institution, hosts a diverse student population that relies on the campus cafeteria as a primary source of meals throughout the day. Yet despite the cafeteria's central role in daily campus life, there is no digital system in place to manage the ordering process.
+
+Without a dedicated ordering platform, students must physically queue at the counter during peak hours, often with no information about what is available, how long the wait will be, or whether they will be served before their next lecture begins. Cafeteria staff, on the other hand, have no advance visibility into demand and cannot begin preparation until a student is standing at the counter.
+
+The widespread adoption of smartphones and cloud-based services has made it increasingly feasible to address this kind of operational inefficiency through mobile technology. This project seeks to design and develop a Cafeteria Ordering System for USIU-A — a native Android application that enables students to browse the menu, place orders remotely, track order status in real time, schedule meals in advance, and manage payments through an in-app wallet. The goal is to reduce queue time, improve the dining experience, and give cafeteria staff the demand visibility they currently lack.

@@ -1,0 +1,9 @@
+# 1.3 Conclusion
+
+This chapter has established the context and motivation for the proposed project. It has traced the evolution of food ordering systems from manual queuing and cash transactions through digital POS terminals, online ordering, and mobile applications, demonstrating that the technology to solve institutional cafeteria problems has been available and maturing for over a decade. It has also highlighted that despite this progress at a global and regional level, Kenyan university cafeterias — including that of USIU-Africa — continue to operate on entirely manual processes.
+
+The problem statement has identified five specific, interconnected deficiencies in the current USIU-A cafeteria operation: peak-hour queuing that exceeds available break time, no menu visibility before arrival, no pre-ordering capability, no advance demand visibility for staff, and a cash-only payment model that adds friction for all parties. These are not isolated inconveniences but systemic inefficiencies that affect the daily experience of hundreds of students and the operational effectiveness of cafeteria staff.
+
+Together, these observations justify the development of a dedicated mobile cafeteria ordering system for USIU-A. The proposed application will address each identified problem directly — enabling remote ordering, real-time status tracking, advance meal scheduling with recurring options, and cashless payment through an in-app wallet.
+
+The subsequent chapters build on this foundation. Chapter Two reviews existing cafeteria and ordering systems globally, regionally, and locally to identify what has been done, what works, and where the gaps remain. Chapter Three formalises the aims and objectives of this project. Chapters Four through Six cover the proposed methodology, system design, and implementation. Chapters Seven and Eight present the testing results and conclusions drawn from the completed work.
