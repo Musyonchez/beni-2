@@ -1,3 +1,113 @@
 <resources>
-    <string name="app_name">Cafeteria</string>
+    <string name="app_name">USIU Cafeteria</string>
+
+    <!-- Student bottom nav -->
+    <string name="nav_menu">Menu</string>
+    <string name="nav_cart">Cart</string>
+    <string name="nav_orders">Orders</string>
+    <string name="nav_preorders">Pre-order</string>
+    <string name="nav_profile">Profile</string>
+
+    <!-- Staff bottom nav -->
+    <string name="nav_staff_orders">Orders</string>
+    <string name="nav_staff_menu">Menu</string>
+    <string name="nav_staff_wallet">Wallet</string>
+
+    <!-- Auth -->
+    <string name="label_email">Email</string>
+    <string name="label_password">Password</string>
+    <string name="label_name">Full name</string>
+    <string name="label_student_id">Student ID</string>
+    <string name="btn_login">Login</string>
+    <string name="btn_register">Register</string>
+    <string name="link_register">Don\'t have an account? Register</string>
+    <string name="link_login">Already have an account? Login</string>
+
+    <!-- Menu screen -->
+    <string name="filter_breakfast">Breakfast</string>
+    <string name="filter_lunch">Lunch</string>
+    <string name="filter_dinner">Dinner</string>
+    <string name="label_unavailable">Unavailable</string>
+    <string name="btn_add_to_cart">Add to Cart</string>
+    <string name="empty_menu">No items available</string>
+
+    <!-- Cart screen -->
+    <string name="label_subtotal">Subtotal</string>
+    <string name="label_estimated_wait">Estimated wait: ~%d min</string>
+    <string name="label_payment_method">Payment method</string>
+    <string name="btn_pay_wallet">Pay from Wallet (KES %.2f)</string>
+    <string name="btn_pay_cash">Pay Cash at Counter</string>
+    <string name="btn_place_order">Place Order</string>
+    <string name="empty_cart">Your cart is empty</string>
+    <string name="btn_browse_menu">Browse Menu</string>
+    <string name="msg_order_placed">Order placed successfully!</string>
+    <string name="msg_insufficient_funds">Insufficient wallet balance. Please top up at the counter.</string>
+    <string name="btn_ok">OK</string>
+
+    <!-- Orders screen -->
+    <string name="tab_active">Active</string>
+    <string name="tab_history">History</string>
+    <string name="empty_orders">No orders yet</string>
+    <string name="label_total">Total: KES %.2f</string>
+
+    <!-- Order status labels -->
+    <string name="status_pending">Pending</string>
+    <string name="status_preparing">Preparing</string>
+    <string name="status_ready">Ready</string>
+    <string name="status_collected">Collected</string>
+    <string name="status_scheduled">Scheduled</string>
+    <string name="status_confirmed">Confirmed</string>
+    <string name="status_cancelled">Cancelled</string>
+
+    <!-- Pre-orders screen -->
+    <string name="btn_new_preorder">New Pre-order</string>
+    <string name="empty_preorders">No pre-orders yet</string>
+    <string name="label_meal_slot">Meal slot</string>
+    <string name="slot_lunch">Lunch</string>
+    <string name="slot_dinner">Dinner</string>
+    <string name="label_date">Date</string>
+    <string name="label_recurring">Recurring (weekly)</string>
+    <string name="btn_schedule">Schedule Pre-order</string>
+    <string name="msg_preorder_scheduled">Pre-order scheduled! Payment will be deducted at cut-off time.</string>
+    <string name="btn_cancel_preorder">Cancel Pre-order</string>
+    <string name="confirm_cancel_preorder">Cancel this pre-order?</string>
+    <string name="btn_confirm">Confirm</string>
+    <string name="btn_cancel">Cancel</string>
+
+    <!-- Profile / Wallet screen -->
+    <string name="label_wallet_balance">Wallet Balance</string>
+    <string name="label_topup_info">Top up by paying cash at the counter</string>
+    <string name="label_transaction_history">Transaction History</string>
+    <string name="empty_transactions">No transactions yet</string>
+    <string name="btn_logout">Logout</string>
+
+    <!-- Staff — orders -->
+    <string name="btn_start_preparing">Start Preparing</string>
+    <string name="btn_mark_ready">Mark Ready</string>
+    <string name="btn_mark_collected">Mark Collected</string>
+    <string name="confirm_cash_collected">Confirm cash collected from student?</string>
+    <string name="label_payment_cash">Cash</string>
+    <string name="label_payment_wallet">Wallet</string>
+
+    <!-- Staff — menu -->
+    <string name="btn_add_item">Add Item</string>
+    <string name="label_item_name">Item name</string>
+    <string name="label_description">Description</string>
+    <string name="label_price">Price (KES)</string>
+    <string name="label_category">Category</string>
+    <string name="label_image_url">Image URL (optional)</string>
+    <string name="btn_save">Save</string>
+    <string name="label_available">Available</string>
+
+    <!-- Staff — wallet top-up -->
+    <string name="label_amount">Amount (KES)</string>
+    <string name="btn_find_student">Find Student</string>
+    <string name="btn_top_up">Confirm Top-up</string>
+    <string name="msg_topup_success">Wallet topped up. New balance: KES %.2f</string>
+    <string name="msg_student_not_found">Student not found</string>
+
+    <!-- Generic -->
+    <string name="error_generic">Something went wrong. Please try again.</string>
+    <string name="btn_retry">Retry</string>
+    <string name="loading">Loading…</string>
 </resources>

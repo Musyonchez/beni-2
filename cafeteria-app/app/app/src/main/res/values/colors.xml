@@ -1,5 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+
+    <!-- USIU branding -->
+    <color name="navy">#002147</color>
+    <color name="navy_dark">#001530</color>
+    <color name="gold">#CFB991</color>
+    <color name="gold_dark">#B8A07A</color>
+    <color name="on_primary">#FFFFFF</color>
+
+    <!-- Backgrounds -->
+    <color name="background">#FAFAFA</color>
+    <color name="surface">#FFFFFF</color>
+
+    <!-- Error -->
+    <color name="error">#B00020</color>
+
+    <!-- Status chip backgrounds -->
+    <color name="amber_100">#FFECB3</color>
+    <color name="blue_100">#BBDEFB</color>
+    <color name="green_100">#C8E6C9</color>
+    <color name="grey_100">#F5F5F5</color>
+    <color name="red_100">#FFCDD2</color>
+
+    <!-- Wallet transaction icons -->
+    <color name="topup_green">#388E3C</color>
+    <color name="deduction_red">#D32F2F</color>
+
 </resources>
