@@ -19,6 +19,7 @@ Staff manage incoming orders, update the menu, and top up student wallets.
 4. `docs/4-features.md` — detailed specs for wallet, pre-order, estimated wait time
 5. `docs/5-firebase.md` — Firebase services, Cloud Functions logic, FCM, security rules
 6. `docs/6-ui.md` — colours, typography, component guidelines, branding
+7. `docs/7-implementation.md` — build order, setup steps, code patterns, testing checkpoints
 
 ## Key rules
 - One Activity (`MainActivity`) with a `BottomNavigationView` and a `FragmentContainerView`
