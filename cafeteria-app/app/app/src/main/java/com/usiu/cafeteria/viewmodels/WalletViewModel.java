@@ -16,6 +16,8 @@ import java.util.List;
 public class WalletViewModel extends ViewModel {
 
     private final MutableLiveData<Double> walletBalance = new MutableLiveData<>(0.0);
+    private final MutableLiveData<String> userName  = new MutableLiveData<>("");
+    private final MutableLiveData<String> userEmail = new MutableLiveData<>("");
     private final MutableLiveData<List<WalletTransaction>> transactions =
             new MutableLiveData<>(new ArrayList<>());
 
@@ -33,6 +35,10 @@ public class WalletViewModel extends ViewModel {
             if (snap != null && snap.exists()) {
                 Double balance = snap.getDouble("walletBalance");
                 walletBalance.setValue(balance != null ? balance : 0.0);
+                String name  = snap.getString("name");
+                String email = snap.getString("email");
+                if (name  != null) userName.setValue(name);
+                if (email != null) userEmail.setValue(email);
             }
         });
 
@@ -51,7 +57,8 @@ public class WalletViewModel extends ViewModel {
     }
 
     public LiveData<Double> getWalletBalance() { return walletBalance; }
-
+    public LiveData<String> getUserName()      { return userName; }
+    public LiveData<String> getUserEmail()     { return userEmail; }
     public LiveData<List<WalletTransaction>> getTransactions() { return transactions; }
 
     @Override
