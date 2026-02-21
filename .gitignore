@@ -15,3 +15,20 @@ desktop.ini
 # Temp
 *.tmp
 *.bak
+
+# Android build outputs
+**/build/
+**/.gradle/
+**/.cxx/
+**/.externalNativeBuild/
+*.iml
+
+# Android signing keys — never commit
+*.keystore
+*.jks
+
+# Node / Cloud Functions
+node_modules/
+functions/node_modules/
+.env
+.env.*
