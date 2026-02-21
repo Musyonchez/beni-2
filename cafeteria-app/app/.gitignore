@@ -1,15 +1,24 @@
-*.iml
-.gradle
-/local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
-.DS_Store
+### Build outputs ###
 /build
-/captures
-.externalNativeBuild
-.cxx
+**/build/
+.gradle/
+.cxx/
+.externalNativeBuild/
+/captures/
+
+### Android Studio / IntelliJ ###
+*.iml
+/.idea/
+.DS_Store
+
+### Local config (machine-specific, not for VCS) ###
 local.properties
+
+### Signing keys — never commit ###
+*.keystore
+*.jks
+
+### Firebase — sensitive config ###
+# google-services.json contains project identifiers.
+# Uncomment the line below if this repo becomes public.
+# google-services.json
