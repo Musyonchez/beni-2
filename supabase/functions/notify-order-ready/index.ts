@@ -4,22 +4,18 @@
 //
 // POST body: { "userId": "<uid>" }
 // Header:    Authorization: Bearer <FUNCTIONS_SECRET>
-//
-// Required Supabase secrets:
-//   FIREBASE_SERVICE_ACCOUNT  — full service account JSON (one line)
-//   FUNCTIONS_SECRET          — shared bearer token for auth
 
-import { initializeApp, cert, getApps } from "npm:firebase-admin/app";
-import { getFirestore }                  from "npm:firebase-admin/firestore";
-import { getMessaging }                  from "npm:firebase-admin/messaging";
+import { initializeApp, cert, getApps, getApp } from "npm:firebase-admin@12/app";
+import { getFirestore }                          from "npm:firebase-admin@12/firestore";
+import { getMessaging }                          from "npm:firebase-admin@12/messaging";
 
-// ── Init Firebase Admin (idempotent across warm starts) ──────────────────────
-if (getApps().length === 0) {
-  const sa = JSON.parse(Deno.env.get("FIREBASE_SERVICE_ACCOUNT")!);
-  initializeApp({ credential: cert(sa) });
+function getFirebaseApp() {
+  if (getApps().length > 0) return getApp();
+  const raw = Deno.env.get("FIREBASE_SERVICE_ACCOUNT");
+  if (!raw) throw new Error("FIREBASE_SERVICE_ACCOUNT secret not set");
+  const sa = JSON.parse(raw);
+  return initializeApp({ credential: cert(sa) });
 }
-
-const db = getFirestore();
 
 // ── Handler ──────────────────────────────────────────────────────────────────
 Deno.serve(async (req: Request) => {
@@ -33,12 +29,16 @@ Deno.serve(async (req: Request) => {
     return new Response("Method Not Allowed", { status: 405 });
   }
 
-  const { userId } = await req.json() as { userId: string };
-  if (!userId) {
-    return new Response("Bad Request: userId required", { status: 400 });
-  }
-
   try {
+    const app = getFirebaseApp();
+    const db  = getFirestore(app);
+    db.settings({ preferRest: true });
+
+    const { userId } = await req.json() as { userId: string };
+    if (!userId) {
+      return new Response("Bad Request: userId required", { status: 400 });
+    }
+
     const userSnap = await db.collection("users").doc(userId).get();
     const token    = userSnap.data()?.fcmToken as string | undefined;
 
@@ -55,8 +55,11 @@ Deno.serve(async (req: Request) => {
     return new Response(JSON.stringify({ ok: true, notified: !!token }), {
       headers: { "Content-Type": "application/json" },
     });
-  } catch (e) {
-    console.error("notify-order-ready error", e);
-    return new Response("Internal Server Error", { status: 500 });
+  } catch (e: unknown) {
+    const msg = e instanceof Error ? e.message : String(e);
+    console.error("notify-order-ready error:", msg);
+    return new Response(JSON.stringify({ error: msg }), {
+      status: 500, headers: { "Content-Type": "application/json" },
+    });
   }
 });
