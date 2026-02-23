@@ -13,6 +13,7 @@
 
 ### Local config (machine-specific, not for VCS) ###
 local.properties
+gradle.properties
 
 ### Signing keys — never commit ###
 *.keystore
