@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.chip.ChipGroup;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.usiu.cafeteria.R;
 import com.usiu.cafeteria.adapters.StaffMenuAdapter;
@@ -44,19 +43,13 @@ public class StaffMenuFragment extends Fragment {
 
         View tvEmpty = view.findViewById(R.id.tv_empty_staff_menu);
 
-        adapter = new StaffMenuAdapter(new StaffMenuAdapter.StaffMenuCallback() {
-            @Override
-            public void onAvailabilityChanged(String itemId, boolean available) {
+        adapter = new StaffMenuAdapter((itemId, available) ->
                 FirestoreRepository.getInstance()
                         .updateMenuItemAvailability(itemId, available)
                         .addOnFailureListener(e ->
                                 Snackbar.make(requireView(),
                                         getString(R.string.error_generic),
-                                        Snackbar.LENGTH_SHORT).show());
-            }
-            @Override
-            public void onEdit(MenuItem item) { openSheet(item); }
-        });
+                                        Snackbar.LENGTH_SHORT).show()));
         rv.setAdapter(adapter);
 
         ChipGroup chipGroup = view.findViewById(R.id.chip_group_staff_filter);
@@ -73,9 +66,6 @@ public class StaffMenuFragment extends Fragment {
         menuViewModel = new ViewModelProvider(this).get(MenuViewModel.class);
         menuViewModel.getMenuItems().observe(getViewLifecycleOwner(),
                 items -> applyFilter(items, tvEmpty));
-
-        FloatingActionButton fab = view.findViewById(R.id.fab_add_item);
-        fab.setOnClickListener(v -> openSheet(null));
     }
 
     private void applyFilter() {
@@ -98,11 +88,5 @@ public class StaffMenuFragment extends Fragment {
         if (tvEmpty != null) {
             tvEmpty.setVisibility(filtered.isEmpty() ? View.VISIBLE : View.GONE);
         }
-    }
-
-    private void openSheet(@Nullable MenuItem item) {
-        AddEditMenuItemBottomSheet sheet = new AddEditMenuItemBottomSheet();
-        if (item != null) sheet.setItem(item);
-        sheet.show(getChildFragmentManager(), "add_edit_menu_item");
     }
 }

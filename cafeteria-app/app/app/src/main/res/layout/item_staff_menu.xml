@@ -46,16 +46,7 @@
         <com.google.android.material.materialswitch.MaterialSwitch
             android:id="@+id/switch_available"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_edit_item"
-            style="@style/Widget.Material3.Button.IconButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="Edit"
-            app:icon="@drawable/ic_edit" />
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 
