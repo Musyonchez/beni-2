@@ -3,41 +3,43 @@ service cloud.firestore {
   match /databases/{database}/documents {
 
     function isAuth() { return request.auth != null; }
-    function isStaff() {
-      return isAuth() &&
-        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'staff';
+    function role() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role;
     }
+    function isStaff()  { return isAuth() && role() == 'staff';  }
+    function isAdmin()  { return isAuth() && role() == 'admin';  }
+    function isPrivileged() { return isStaff() || isAdmin(); }
     function isOwner(uid) { return isAuth() && request.auth.uid == uid; }
 
     match /users/{userId} {
-      allow read: if isOwner(userId) || isStaff();
+      allow read: if isOwner(userId) || isPrivileged();
       allow create: if isAuth() && isOwner(userId);
-      // walletBalance only changed by Cloud Functions (admin SDK) or staff
-      allow update: if isStaff();
+      // walletBalance changed by staff; role changed by admin
+      allow update: if isPrivileged();
     }
 
     match /menuItems/{itemId} {
       allow read: if isAuth();
-      allow write: if isStaff();
+      allow write: if isPrivileged();
     }
 
     match /orders/{orderId} {
-      allow read: if isStaff() || (isAuth() && resource.data.userId == request.auth.uid);
+      allow read: if isPrivileged() || (isAuth() && resource.data.userId == request.auth.uid);
       allow create: if isAuth() && request.resource.data.userId == request.auth.uid;
-      allow update: if isStaff();
+      allow update: if isPrivileged();
     }
 
     match /preOrders/{preOrderId} {
-      allow read: if isStaff() || (isAuth() && resource.data.userId == request.auth.uid);
+      allow read: if isPrivileged() || (isAuth() && resource.data.userId == request.auth.uid);
       allow create: if isAuth() && request.resource.data.userId == request.auth.uid;
-      allow update: if isStaff() ||
+      allow update: if isPrivileged() ||
         (isAuth() && resource.data.userId == request.auth.uid
           && request.resource.data.status == 'cancelled');
     }
 
     match /walletTransactions/{txId} {
-      allow read: if isOwner(resource.data.userId) || isStaff();
-      allow write: if isStaff();
+      allow read: if isOwner(resource.data.userId) || isPrivileged();
+      allow write: if isPrivileged();
     }
   }
 }
