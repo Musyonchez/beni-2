@@ -18,12 +18,18 @@ Functional requirements define the specific actions and features that the Cafete
 - **FR9:** The system shall allow staff to view all incoming orders and update their status (Pending → Preparing → Ready → Collected).
 - **FR10:** The system shall allow staff to mark a cash order as paid when the student collects and pays at the counter.
 - **FR11:** The system shall allow staff to manage the menu — add, edit, enable, or disable menu items and update daily availability.
-- **FR12:** The system shall allow staff to top up a student's wallet balance by entering the student's ID and the cash amount received.
+- **FR12:** The system shall allow staff to credit (top up) or debit (deduct) a student's wallet balance by entering the student's ID and the amount; each transaction shall record the staff member's ID (staffId) for accountability.
+
+## Admin Functional Requirements
+
+- **FR13:** The system shall allow administrators to create staff accounts via the web admin panel; each new staff account shall be assigned a temporary password, and the staff member shall be required to change it on first login before accessing any operational screens.
+- **FR14:** The system shall allow administrators to add, edit, delete, and toggle the availability of menu items via the web admin panel, with changes reflected immediately on all student Menu screens through Firestore snapshot listeners.
+- **FR15:** The system shall allow administrators to view a directory of all users, with students and staff/admin accounts displayed in separate tables.
 
 ## System Functional Requirements
 
-- **FR13:** The system shall automatically process all confirmed pre-orders at the respective cut-off time: deduct the order total from the student's wallet if funds are sufficient, or cancel the pre-order and send a push notification if the wallet balance is insufficient.
-- **FR14:** The system shall send Firebase Cloud Messaging (FCM) push notifications to students when their order status changes (e.g., Ready for collection) and when a pre-order is confirmed or cancelled due to insufficient funds.
-- **FR15:** The system shall enforce secure authentication via Firebase Authentication, ensuring that students, staff, and administrators access only the data and screens appropriate to their role.
-- **FR16:** The system shall perform all wallet deductions atomically using Firestore transactions to prevent race conditions or double-spending.
-- **FR17:** The system shall maintain a complete, timestamped audit trail of all wallet transactions (top-ups and deductions) in the walletTransactions Firestore collection.
+- **FR16:** The system shall automatically process all confirmed pre-orders at the respective cut-off time via the Supabase process-cutoff Edge Function (called by cron-job.org at 10:00 AM EAT for lunch and 5:00 PM EAT for dinner): deduct the order total from the student's wallet if funds are sufficient, or cancel the pre-order and send an FCM push notification if the wallet balance is insufficient.
+- **FR17:** The system shall send FCM push notifications to students when their order status changes to Ready (via the Supabase notify-order-ready Edge Function, called by the Android app after the staff status update) and when a pre-order is confirmed or cancelled due to insufficient funds (via the process-cutoff Edge Function).
+- **FR18:** The system shall enforce secure authentication via Firebase Authentication, ensuring that students (Android app), staff (Android app), and administrators (web panel) access only the data and screens appropriate to their role, as enforced by Firestore security rules using isStudent(), isStaff(), isAdmin(), and isPrivileged() helper functions.
+- **FR19:** The system shall perform all wallet deductions atomically using Firestore runTransaction() to prevent race conditions or double-spending.
+- **FR20:** The system shall maintain a complete, timestamped audit trail of all wallet transactions (top-ups and deductions) in the walletTransactions Firestore collection, including the staffId of the staff member who performed each transaction.
