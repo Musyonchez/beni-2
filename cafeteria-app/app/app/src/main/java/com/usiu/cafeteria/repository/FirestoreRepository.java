@@ -71,6 +71,12 @@ public class FirestoreRepository {
                 .update("fcmToken", token);
     }
 
+    public Task<Void> clearFirstLogin(String uid) {
+        return db.collection("users")
+                .document(uid)
+                .update("firstLogin", false);
+    }
+
     public ListenerRegistration listenToUser(String uid,
                                              EventListener<DocumentSnapshot> listener) {
         return db.collection("users").document(uid).addSnapshotListener(listener);

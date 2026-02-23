@@ -73,7 +73,12 @@ public class LoginActivity extends AppCompatActivity {
                 .addOnSuccessListener(snap -> {
                     String role = snap.getString("role");
                     if ("staff".equals(role)) {
-                        startActivity(new Intent(this, StaffMainActivity.class));
+                        Boolean firstLogin = snap.getBoolean("firstLogin");
+                        if (Boolean.TRUE.equals(firstLogin)) {
+                            startActivity(new Intent(this, ChangePasswordActivity.class));
+                        } else {
+                            startActivity(new Intent(this, StaffMainActivity.class));
+                        }
                     } else {
                         startActivity(new Intent(this, MainActivity.class));
                     }

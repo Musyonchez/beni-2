@@ -20,6 +20,7 @@ export async function POST(req: NextRequest) {
       role:          "staff",
       walletBalance: 0,
       fcmToken:      null,
+      firstLogin:    true,
       createdAt:     new Date(),
     });
 

@@ -24,7 +24,11 @@ export default function LoginPage() {
         setError("Access denied. Admin accounts only.");
         return;
       }
-      router.push("/dashboard/menu");
+      if (snap.data()?.firstLogin) {
+        router.push("/change-password");
+      } else {
+        router.push("/dashboard/menu");
+      }
     } catch {
       setError("Invalid email or password.");
     } finally {
