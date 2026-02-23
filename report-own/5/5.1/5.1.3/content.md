@@ -2,13 +2,13 @@
 
 ## Introduction
 
-An ERD illustrates the logical structure of the database by showing entities, their attributes, and the relationships between them. For the USIU Cafeteria Ordering System, the ERD maps the six Firestore collections that store all system data — users, menu items, orders, pre-orders, and wallet transactions — and defines how they relate to one another.
+An ERD illustrates the logical structure of the database by showing entities, their attributes, and the relationships between them. For the USIU Cafeteria Ordering System, the ERD maps the five Firestore collections that store all system data — users, menuItems, orders, preOrders, and walletTransactions (with orderItems embedded as arrays) — and defines how they relate to one another.
 
 > [Figure 14: Entity Relationship Diagram (ERD) — six Firestore collections with attributes and relationships]
 
-Figure 14 above shows the Entity-Relationship Diagram for the USIU Cafeteria Ordering System. The six key entities are as follows:
+Figure 14 above shows the Entity-Relationship Diagram for the USIU Cafeteria Ordering System. The five key entities are as follows:
 
-**users** — Represents all registered users of the system. Attributes: uid (PK), name, studentId, email, role (student | staff), walletBalance, deviceToken. A user can place many orders, many pre-orders, and have many wallet transactions.
+**users** — Represents all registered users of the system. Attributes: uid (PK), name, studentId (students only; absent for staff and admin), email, role (student | staff | admin), walletBalance (students only; absent for staff and admin), fcmToken (renamed from deviceToken in the original plan), firstLogin (boolean; staff and admin only — set to true on account creation, cleared to false after the first-login password change), createdAt. A student user can place many orders, many pre-orders, and have many wallet transactions.
 
 **menuItems** — Represents each item available in the cafeteria menu. Attributes: id (PK), name, category (Mains | Snacks | Drinks | Specials), price, available (boolean), imageUrl. A menu item can appear in many order items and many pre-order items.
 
@@ -18,6 +18,6 @@ Figure 14 above shows the Entity-Relationship Diagram for the USIU Cafeteria Ord
 
 **preOrders** — Represents an advance meal scheduled by a student. Attributes: id (PK), userId (FK → users), mealType (breakfast | lunch | dinner), pickupTime, recurring (boolean), dayOfWeek (0–6, used if recurring), status (scheduled | confirmed | cancelled | completed), total, createdAt. Items are embedded as an array identical to orderItems.
 
-**walletTransactions** — Represents each credit or debit event on a student's wallet. Attributes: id (PK), userId (FK → users), type (credit | debit), amount, description, createdAt. Provides a full audit trail for every wallet balance change.
+**walletTransactions** — Represents each credit or debit event on a student's wallet. Attributes: id (PK), userId (FK → users — the student whose wallet was changed), type (credit | debit), amount, description, staffId (FK → users — the UID of the staff member who performed the transaction, for audit purposes), createdAt. Provides a complete, accountable audit trail for every wallet balance change, linking each transaction to the responsible staff member.
 
-The ERD illustrates that all financial and ordering activity is anchored to the users entity through foreign key relationships, enabling the system to present each student with a personalised view of their orders, pre-orders, and transaction history while preventing access to other users' data through Firestore security rules.
+The ERD illustrates that all financial and ordering activity is anchored to the users entity through foreign key relationships. Firestore security rules use three helper functions — isStudent(), isStaff(), and isAdmin() — to gate access per collection, with an isPrivileged() helper combining staff and admin permissions for shared operations such as order status updates and menu management. This ensures each student sees only their own data while staff and admin can access the records necessary for their respective roles.
