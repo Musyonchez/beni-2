@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "21464666851",
+    "project_id": "usiu-cafeteria-fc36c",
+    "storage_bucket": "usiu-cafeteria-fc36c.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:21464666851:android:38b193377f0513056babd6",
+        "android_client_info": {
+          "package_name": "com.usiu.cafeteria"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAo-ywkG5F-kF_lBw_LPtRXu9VPnjepgLQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
