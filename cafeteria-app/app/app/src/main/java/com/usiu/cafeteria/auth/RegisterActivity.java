@@ -62,7 +62,10 @@ public class RegisterActivity extends AppCompatActivity {
                 })
                 .addOnFailureListener(e -> {
                     btnRegister.setEnabled(true);
-                    showSnackbar(getString(R.string.error_generic));
+                    String msg = e.getMessage() != null && e.getMessage().contains("already in use")
+                            ? "That email is already registered. Please log in."
+                            : getString(R.string.error_generic);
+                    showSnackbar(msg);
                 });
     }
 
