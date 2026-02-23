@@ -12,6 +12,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import com.usiu.cafeteria.MainActivity;
+import com.google.firebase.Timestamp;
+
 import com.usiu.cafeteria.R;
 import com.usiu.cafeteria.models.User;
 import com.usiu.cafeteria.repository.FirestoreRepository;
@@ -72,6 +74,7 @@ public class RegisterActivity extends AppCompatActivity {
         user.setEmail(email);
         user.setRole("student");
         user.setWalletBalance(0.0);
+        user.setCreatedAt(Timestamp.now());
 
         FirestoreRepository.getInstance().createUser(user)
                 .addOnSuccessListener(unused -> {
