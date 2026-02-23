@@ -262,6 +262,8 @@ public class FirestoreRepository {
      *   2. Write walletTransaction doc (type=topup)
      */
     public Task<Void> topUpWallet(String userId, double amount) {
+        String staffId = FirebaseAuth.getInstance().getCurrentUser() != null
+                ? FirebaseAuth.getInstance().getCurrentUser().getUid() : "unknown";
         DocumentReference userRef = db.collection("users").document(userId);
         DocumentReference txRef   = db.collection("walletTransactions").document();
 
@@ -278,6 +280,7 @@ public class FirestoreRepository {
             wt.setAmount(amount);
             wt.setDescription("Top-up by staff");
             wt.setRelatedOrderId("");
+            wt.setStaffId(staffId);
             wt.setCreatedAt(Timestamp.now());
             transaction.set(txRef, wt);
 
@@ -291,6 +294,8 @@ public class FirestoreRepository {
      *   2. Write walletTransaction doc (type=deduction)
      */
     public Task<Void> deductWallet(String userId, double amount) {
+        String staffId = FirebaseAuth.getInstance().getCurrentUser() != null
+                ? FirebaseAuth.getInstance().getCurrentUser().getUid() : "unknown";
         DocumentReference userRef = db.collection("users").document(userId);
         DocumentReference txRef   = db.collection("walletTransactions").document();
 
@@ -308,6 +313,7 @@ public class FirestoreRepository {
             wt.setAmount(amount);
             wt.setDescription("Manual deduction by staff");
             wt.setRelatedOrderId("");
+            wt.setStaffId(staffId);
             wt.setCreatedAt(Timestamp.now());
             transaction.set(txRef, wt);
 

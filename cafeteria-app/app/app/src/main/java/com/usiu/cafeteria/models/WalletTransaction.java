@@ -10,6 +10,7 @@ public class WalletTransaction {
     private double amount;
     private String description;
     private String relatedOrderId;
+    private String staffId;
     private Timestamp createdAt;
 
     public WalletTransaction() {}
@@ -31,6 +32,9 @@ public class WalletTransaction {
 
     public String getRelatedOrderId() { return relatedOrderId; }
     public void setRelatedOrderId(String relatedOrderId) { this.relatedOrderId = relatedOrderId; }
+
+    public String getStaffId() { return staffId; }
+    public void setStaffId(String staffId) { this.staffId = staffId; }
 
     public Timestamp getCreatedAt() { return createdAt; }
     public void setCreatedAt(Timestamp createdAt) { this.createdAt = createdAt; }
