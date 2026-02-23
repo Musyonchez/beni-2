@@ -12,4 +12,8 @@
         android:id="@+id/nav_staff_wallet"
         android:icon="@drawable/ic_nav_staff_wallet"
         android:title="@string/nav_staff_wallet" />
+    <item
+        android:id="@+id/nav_staff_profile"
+        android:icon="@drawable/ic_nav_staff_profile"
+        android:title="@string/nav_staff_profile" />
 </menu>

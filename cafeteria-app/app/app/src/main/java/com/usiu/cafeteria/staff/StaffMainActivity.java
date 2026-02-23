@@ -19,9 +19,10 @@ public class StaffMainActivity extends AppCompatActivity {
     public OrdersViewModel ordersViewModel;
     public MenuViewModel   menuViewModel;
 
-    private StaffOrdersFragment staffOrdersFragment;
-    private StaffMenuFragment   staffMenuFragment;
-    private StaffWalletFragment staffWalletFragment;
+    private StaffOrdersFragment  staffOrdersFragment;
+    private StaffMenuFragment    staffMenuFragment;
+    private StaffWalletFragment  staffWalletFragment;
+    private StaffProfileFragment staffProfileFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,24 +41,28 @@ public class StaffMainActivity extends AppCompatActivity {
 
         ordersViewModel.startListeningAllActive();
 
-        staffOrdersFragment = new StaffOrdersFragment();
-        staffMenuFragment   = new StaffMenuFragment();
-        staffWalletFragment = new StaffWalletFragment();
+        staffOrdersFragment  = new StaffOrdersFragment();
+        staffMenuFragment    = new StaffMenuFragment();
+        staffWalletFragment  = new StaffWalletFragment();
+        staffProfileFragment = new StaffProfileFragment();
 
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.staff_fragment_container, staffOrdersFragment, "STAFF_ORDERS")
-                .add(R.id.staff_fragment_container, staffMenuFragment,   "STAFF_MENU")
-                .add(R.id.staff_fragment_container, staffWalletFragment, "STAFF_WALLET")
+                .add(R.id.staff_fragment_container, staffOrdersFragment,  "STAFF_ORDERS")
+                .add(R.id.staff_fragment_container, staffMenuFragment,    "STAFF_MENU")
+                .add(R.id.staff_fragment_container, staffWalletFragment,  "STAFF_WALLET")
+                .add(R.id.staff_fragment_container, staffProfileFragment, "STAFF_PROFILE")
                 .hide(staffMenuFragment)
                 .hide(staffWalletFragment)
+                .hide(staffProfileFragment)
                 .commit();
 
         BottomNavigationView bottomNav = findViewById(R.id.staff_bottom_nav);
         bottomNav.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
-            if      (id == R.id.nav_staff_orders) showFragment(staffOrdersFragment);
-            else if (id == R.id.nav_staff_menu)   showFragment(staffMenuFragment);
-            else if (id == R.id.nav_staff_wallet) showFragment(staffWalletFragment);
+            if      (id == R.id.nav_staff_orders)  showFragment(staffOrdersFragment);
+            else if (id == R.id.nav_staff_menu)    showFragment(staffMenuFragment);
+            else if (id == R.id.nav_staff_wallet)  showFragment(staffWalletFragment);
+            else if (id == R.id.nav_staff_profile) showFragment(staffProfileFragment);
             return true;
         });
     }
@@ -67,6 +72,7 @@ public class StaffMainActivity extends AppCompatActivity {
                 .hide(staffOrdersFragment)
                 .hide(staffMenuFragment)
                 .hide(staffWalletFragment)
+                .hide(staffProfileFragment)
                 .show(target)
                 .commit();
     }
