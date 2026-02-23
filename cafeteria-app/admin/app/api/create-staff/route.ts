@@ -14,14 +14,13 @@ export async function POST(req: NextRequest) {
 
     // Write Firestore doc
     await adminDb.collection("users").doc(userRecord.uid).set({
-      uid:           userRecord.uid,
+      uid:        userRecord.uid,
       name,
       email,
-      role:          "staff",
-      walletBalance: 0,
-      fcmToken:      null,
-      firstLogin:    true,
-      createdAt:     new Date(),
+      role:       "staff",
+      fcmToken:   null,
+      firstLogin: true,
+      createdAt:  new Date(),
     });
 
     return NextResponse.json({ ok: true, uid: userRecord.uid });
