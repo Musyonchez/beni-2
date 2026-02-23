@@ -285,6 +285,36 @@ public class FirestoreRepository {
         });
     }
 
+    /**
+     * Staff deduct — atomic Firestore transaction:
+     *   1. Subtract amount from student's walletBalance (floor at 0)
+     *   2. Write walletTransaction doc (type=deduction)
+     */
+    public Task<Void> deductWallet(String userId, double amount) {
+        DocumentReference userRef = db.collection("users").document(userId);
+        DocumentReference txRef   = db.collection("walletTransactions").document();
+
+        return db.runTransaction(transaction -> {
+            DocumentSnapshot userSnap = transaction.get(userRef);
+            double current = userSnap.getDouble("walletBalance");
+            double newBalance = Math.max(0, current - amount);
+
+            transaction.update(userRef, "walletBalance", newBalance);
+
+            WalletTransaction wt = new WalletTransaction();
+            wt.setTxId(txRef.getId());
+            wt.setUserId(userId);
+            wt.setType("deduction");
+            wt.setAmount(amount);
+            wt.setDescription("Manual deduction by staff");
+            wt.setRelatedOrderId("");
+            wt.setCreatedAt(Timestamp.now());
+            transaction.set(txRef, wt);
+
+            return null;
+        });
+    }
+
     public ListenerRegistration listenToWalletTransactions(String userId,
                                                            EventListener<QuerySnapshot> listener) {
         return db.collection("walletTransactions")

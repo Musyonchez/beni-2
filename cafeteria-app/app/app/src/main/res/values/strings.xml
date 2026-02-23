@@ -105,6 +105,8 @@
     <string name="btn_top_up">Confirm Top-up</string>
     <string name="msg_topup_success">Wallet topped up. New balance: KES %.2f</string>
     <string name="msg_student_not_found">Student not found</string>
+    <string name="btn_deduct">Confirm Deduction</string>
+    <string name="msg_deduct_success">Deducted. New balance: KES %.2f</string>
 
     <!-- Generic -->
     <string name="error_generic">Something went wrong. Please try again.</string>

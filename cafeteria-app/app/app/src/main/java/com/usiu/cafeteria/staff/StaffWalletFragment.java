@@ -38,6 +38,7 @@ public class StaffWalletFragment extends Fragment {
         View              tilAmount   = view.findViewById(R.id.til_amount);
         TextInputEditText etAmount    = view.findViewById(R.id.et_amount);
         MaterialButton    btnTopUp    = view.findViewById(R.id.btn_confirm_topup);
+        MaterialButton    btnDeduct   = view.findViewById(R.id.btn_confirm_deduct);
 
         btnFind.setOnClickListener(v -> {
             String studentId = etStudentId.getText() != null
@@ -50,7 +51,7 @@ public class StaffWalletFragment extends Fragment {
                             Snackbar.make(requireView(),
                                     getString(R.string.msg_student_not_found),
                                     Snackbar.LENGTH_SHORT).show();
-                            hideStudentUI(cardInfo, tilAmount, btnTopUp);
+                            hideStudentUI(cardInfo, tilAmount, btnTopUp, btnDeduct);
                             foundUserId = null;
                             return;
                         }
@@ -68,6 +69,7 @@ public class StaffWalletFragment extends Fragment {
                         cardInfo.setVisibility(View.VISIBLE);
                         tilAmount.setVisibility(View.VISIBLE);
                         btnTopUp.setVisibility(View.VISIBLE);
+                        btnDeduct.setVisibility(View.VISIBLE);
                     })
                     .addOnFailureListener(e ->
                             Snackbar.make(requireView(),
@@ -101,11 +103,39 @@ public class StaffWalletFragment extends Fragment {
                                     getString(R.string.error_generic),
                                     Snackbar.LENGTH_SHORT).show());
         });
+
+        btnDeduct.setOnClickListener(v -> {
+            if (foundUserId == null) return;
+            String amtStr = etAmount.getText() != null
+                    ? etAmount.getText().toString().trim() : "";
+            if (amtStr.isEmpty()) return;
+
+            double amount;
+            try { amount = Double.parseDouble(amtStr); }
+            catch (NumberFormatException e) { return; }
+            if (amount <= 0) return;
+
+            final double deductAmount = amount;
+            FirestoreRepository.getInstance().deductWallet(foundUserId, deductAmount)
+                    .addOnSuccessListener(unused -> {
+                        foundBalance = Math.max(0, foundBalance - deductAmount);
+                        tvBalance.setText(String.format("Balance: KES %.2f", foundBalance));
+                        etAmount.setText("");
+                        Snackbar.make(requireView(),
+                                getString(R.string.msg_deduct_success, foundBalance),
+                                Snackbar.LENGTH_LONG).show();
+                    })
+                    .addOnFailureListener(e ->
+                            Snackbar.make(requireView(),
+                                    getString(R.string.error_generic),
+                                    Snackbar.LENGTH_SHORT).show());
+        });
     }
 
-    private void hideStudentUI(View cardInfo, View tilAmount, View btnTopUp) {
+    private void hideStudentUI(View cardInfo, View tilAmount, View btnTopUp, View btnDeduct) {
         cardInfo.setVisibility(View.GONE);
         tilAmount.setVisibility(View.GONE);
         btnTopUp.setVisibility(View.GONE);
+        btnDeduct.setVisibility(View.GONE);
     }
 }
