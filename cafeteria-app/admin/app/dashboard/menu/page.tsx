@@ -3,9 +3,9 @@ import { useEffect, useState } from "react";
 import { collection, onSnapshot, doc, setDoc, updateDoc, deleteDoc, Timestamp } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 
-interface MenuItem { itemId: string; name: string; description: string; price: number; category: string; available: boolean; }
+interface MenuItem { itemId: string; name: string; description: string; price: number; category: string; imageUrl: string; available: boolean; }
 const CATEGORIES = ["Breakfast", "Lunch", "Dinner"];
-const EMPTY: Omit<MenuItem, "itemId"> = { name: "", description: "", price: 0, category: "Lunch", available: true };
+const EMPTY: Omit<MenuItem, "itemId"> = { name: "", description: "", price: 0, category: "Lunch", imageUrl: "", available: true };
 
 export default function MenuPage() {
   const [items, setItems]     = useState<MenuItem[]>([]);
@@ -31,7 +31,7 @@ export default function MenuPage() {
 
   function startEdit(item: MenuItem) {
     setEditing(item.itemId);
-    setForm({ name: item.name, description: item.description, price: item.price, category: item.category, available: item.available });
+    setForm({ name: item.name, description: item.description, price: item.price, category: item.category, imageUrl: item.imageUrl ?? "", available: item.available });
   }
 
   async function remove(id: string) {
@@ -49,6 +49,8 @@ export default function MenuPage() {
           value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} />
         <input className="border rounded-lg px-3 py-2 text-sm col-span-2" placeholder="Description"
           value={form.description} onChange={e => setForm(f => ({ ...f, description: e.target.value }))} />
+        <input className="border rounded-lg px-3 py-2 text-sm col-span-2" placeholder="Image URL (Unsplash)"
+          value={form.imageUrl} onChange={e => setForm(f => ({ ...f, imageUrl: e.target.value }))} />
         <input type="number" className="border rounded-lg px-3 py-2 text-sm" placeholder="Price (KES)"
           value={form.price} onChange={e => setForm(f => ({ ...f, price: parseFloat(e.target.value) || 0 }))} />
         <select className="border rounded-lg px-3 py-2 text-sm"
