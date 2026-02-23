@@ -51,16 +51,16 @@ public class StaffOrdersFragment extends Fragment {
             new MaterialAlertDialogBuilder(requireContext())
                     .setMessage(R.string.confirm_cash_collected)
                     .setPositiveButton(R.string.btn_confirm, (d, w) ->
-                            updateStatus(order.getOrderId(), newStatus))
+                            updateStatus(order.getOrderId(), newStatus, order.getUserId()))
                     .setNegativeButton(R.string.btn_cancel, null)
                     .show();
         } else {
-            updateStatus(order.getOrderId(), newStatus);
+            updateStatus(order.getOrderId(), newStatus, order.getUserId());
         }
     }
 
-    private void updateStatus(String orderId, String newStatus) {
-        FirestoreRepository.getInstance().updateOrderStatus(orderId, newStatus)
+    private void updateStatus(String orderId, String newStatus, String userId) {
+        FirestoreRepository.getInstance().updateOrderStatus(orderId, newStatus, userId)
                 .addOnFailureListener(e ->
                         Snackbar.make(requireView(),
                                 getString(R.string.error_generic),

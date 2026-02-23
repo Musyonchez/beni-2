@@ -18,9 +18,14 @@ import com.usiu.cafeteria.models.PreOrder;
 import com.usiu.cafeteria.models.User;
 import com.usiu.cafeteria.models.WalletTransaction;
 
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.Executors;
 
 public class FirestoreRepository {
 
@@ -172,10 +177,45 @@ public class FirestoreRepository {
                 .addSnapshotListener(listener);
     }
 
-    public Task<Void> updateOrderStatus(String orderId, String newStatus) {
-        return db.collection("orders")
+    public Task<Void> updateOrderStatus(String orderId, String newStatus, String userId) {
+        Task<Void> task = db.collection("orders")
                 .document(orderId)
                 .update("status", newStatus);
+
+        if ("ready".equals(newStatus)) {
+            task.addOnSuccessListener(unused -> notifyOrderReady(userId));
+        }
+
+        return task;
+    }
+
+    /** Fire-and-forget HTTP POST to Supabase Edge Function to send FCM push. */
+    private void notifyOrderReady(String userId) {
+        Executors.newSingleThreadExecutor().execute(() -> {
+            try {
+                String notifyUrl = com.usiu.cafeteria.BuildConfig.SUPABASE_NOTIFY_URL;
+                String secret    = com.usiu.cafeteria.BuildConfig.FUNCTIONS_SECRET;
+                if (notifyUrl.isEmpty()) return;
+
+                URL url = new URL(notifyUrl);
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("POST");
+                conn.setRequestProperty("Content-Type", "application/json");
+                conn.setRequestProperty("Authorization", "Bearer " + secret);
+                conn.setDoOutput(true);
+
+                byte[] body = ("{\"userId\":\"" + userId + "\"}").getBytes(StandardCharsets.UTF_8);
+                try (OutputStream os = conn.getOutputStream()) {
+                    os.write(body);
+                }
+
+                conn.getResponseCode(); // execute request
+                conn.disconnect();
+            } catch (Exception e) {
+                // Non-critical — order is already updated in Firestore
+                android.util.Log.w("FirestoreRepository", "notifyOrderReady failed: " + e.getMessage());
+            }
+        });
     }
 
     /**

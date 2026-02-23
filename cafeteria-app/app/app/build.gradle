@@ -19,6 +19,14 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        // Supabase Edge Function config — fill in after deploying edge functions
+        buildConfigField "String", "SUPABASE_NOTIFY_URL", "\"${project.findProperty('SUPABASE_NOTIFY_URL') ?: ''}\""
+        buildConfigField "String", "FUNCTIONS_SECRET",    "\"${project.findProperty('FUNCTIONS_SECRET')    ?: ''}\""
+    }
+
+    buildFeatures {
+        buildConfig true
     }
 
     buildTypes {
