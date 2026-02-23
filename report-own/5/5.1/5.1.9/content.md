@@ -1,8 +1,8 @@
 # 5.1.9 Wireframes
 
-The wireframes for the USIU Cafeteria Ordering System serve as the visual blueprint for the mobile application's five main screens. They outline how each screen will be structured, what components will appear, and how users will navigate between functions. At this stage the focus is on layout and interaction flow rather than final colours or visual polish. The wireframes ensure that every feature — menu browsing, cart checkout, order tracking, pre-order scheduling, and wallet management — is logically organised before implementation begins.
+The wireframes for the USIU Cafeteria Ordering System serve as the visual blueprint for all application interfaces. They outline how each screen will be structured, what components will appear, and how users will navigate between functions. At this stage the focus is on layout and interaction flow rather than final colours or visual polish. The wireframes cover two applications: the Android mobile app (five student screens and three staff screens) and the web-based admin panel (four web pages). Together they ensure that every feature — menu browsing, cart checkout, order tracking, pre-order scheduling, wallet management, staff order processing, and admin account and menu control — is logically organised before implementation begins.
 
-> [Figure 22: Wireframes — all five main screens: Menu, Cart, Orders, Pre-orders, and Profile/Wallet]
+> [Figure 22: Wireframes — Android app (Menu, Cart, Orders, Pre-orders, Profile/Wallet) and web admin panel (Login, Menu Management, Staff Creation, Users Directory)]
 
 Figure 22 above represents the wireframes for the USIU Cafeteria Ordering System.
 
@@ -24,4 +24,18 @@ The Pre-orders screen shows a list of upcoming scheduled pre-orders, each displa
 
 ## Screen 5: Profile / Wallet
 
-The Profile/Wallet screen opens with a prominent wallet balance card at the top showing the current balance and a note indicating that top-ups are done at the cafeteria counter. Below the balance card is a scrollable list of recent wallet transactions (credits and debits) with date, description, and amount. Below transactions is the student's account details section (name, student ID, email) and a logout button. If the logged-in user has the staff role, an additional "Staff Panel" section appears at the bottom with shortcuts to Staff Orders, Staff Menu, and Staff Wallet screens.
+The Profile/Wallet screen opens with a prominent wallet balance card at the top showing the current balance and a note indicating that top-ups are done at the cafeteria counter. Below the balance card is a scrollable list of recent wallet transactions (credits and debits) with date, description, and amount. Below transactions is the student's account details section (name, student ID, email) and a logout button.
+
+---
+
+## Web Admin Panel (Sixth Interface)
+
+The admin panel is a browser-based application accessible only to users with the admin role. It consists of four pages:
+
+**Admin Login Page:** A centred login form with email and password fields and a "Sign In" button. On successful login, the system checks the role field — if not admin, the user is redirected. If firstLogin is true, the user is redirected to the change password page before accessing the dashboard.
+
+**Dashboard — Menu Management:** A full-width data table listing all menu items with columns for name, category, price, availability toggle (switch), and image URL. An "Add Item" button above the table opens an inline form or modal with fields for name, description, category (dropdown), price, imageUrl, and availability. Each row has Edit and Delete action buttons. Changes write to the Firestore menuItems collection via the Firebase Client SDK.
+
+**Dashboard — Staff Account Creation:** A simple form with fields for full name, email, and temporary password, and a "Create Staff Account" button. On submission, the Next.js API route calls the Firebase Admin SDK to create a Firebase Auth user and write a Firestore users document with role=staff and firstLogin=true. A success message shows the new account's email.
+
+**Dashboard — Users Directory:** Two separate tables on one page. The first table lists all students (name, student ID, email, wallet balance, joined date). The second table lists all staff and admin accounts (name, email, role, firstLogin status). Both tables are read from the Firestore users collection, filtered by role, via the Firebase Client SDK.
