@@ -1,0 +1,6 @@
+# CHAPTER 6: IMPLEMENTATION
+
+The implementation phase of the USIU Cafeteria Ordering System represented the transformation of the design specifications established in Chapter 5 into two fully operational, production-ready deliverables: a native Android mobile application serving students and cafeteria staff, and a web-based admin panel for system administrators. This chapter documents the development process, the technical structures adopted, and the integration patterns that govern how all components communicate, from the user interface through to the cloud backend.
+
+The Android application was built in Java using XML-based layouts and Material Design 3 components, following an MVVM architecture with a centralised FirestoreRepository for all data access. The admin panel was built as a separate Next.js 14 application using TypeScript and Tailwind CSS, sharing the same Firebase project. The backend relies on Firebase Firestore, Firebase Authentication, and Firebase Cloud Messaging, supplemented by Supabase Edge Functions for scheduled pre-order processing and push notification dispatch. All infrastructure is hosted on free-tier plans, resulting in a production-ready system at zero operational cost.
+
