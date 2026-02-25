@@ -1,0 +1,3 @@
+# 7.3 User Acceptance Testing (UAT)
+
+User Acceptance Testing was conducted to verify that the USIU Cafeteria Ordering System met its core functional objectives and provided a seamless experience for all target user groups — students, cafeteria staff, and administrators. The primary aim was to assess whether real users could independently perform their intended tasks: browsing the menu, managing a cart, placing wallet and cash orders, tracking order status in real time, scheduling pre-orders, managing orders as staff, and crediting student wallets. Testing was carried out in two stages: a developer-led role simulation using two physical Android devices simultaneously, followed by a peer review session with fellow USIU-Africa students.

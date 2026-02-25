@@ -1,0 +1,7 @@
+# 7.6 Conclusion
+
+The testing and evaluation phase confirmed that the USIU Cafeteria Ordering System is functionally complete, secure, and performant. All fifteen test cases — nine functional, three security, and three performance — passed against their defined criteria on a physical Android device running against the live Firebase backend. The complete student order lifecycle, the staff order management workflow, the in-app wallet with atomic Firestore transactions, the pre-order cut-off automation via Supabase Edge Functions, and the FCM push notification pipeline all operated as specified without critical defects.
+
+UAT validated that the application is usable by real participants without prior training, with feedback confirming that the ordering flow is intuitive and that real-time notifications add meaningful value. The only usability observation — the discoverability of the Pre-orders section for first-time users — has been noted as a minor future enhancement.
+
+The impact analysis further demonstrated that the system addresses the core problem of cafeteria queue management while delivering broader benefits to staff accountability, administrator control, and campus sustainability. The free-tier cloud infrastructure model proved viable for a university prototype and provides a scalable foundation for future enhancements, including indoor navigation integration, repeat-order shortcuts, and full admin analytics. The system is ready for deployment and provides a solid basis for the recommendations presented in Chapter 8.

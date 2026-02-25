@@ -1,0 +1,7 @@
+# 7.1 Introduction
+
+This chapter presents the comprehensive testing and evaluation phase of the USIU Cafeteria Ordering System, encompassing unit-level logic verification, system testing, security rule validation, performance benchmarking, and user acceptance testing. The primary objective was to confirm that all features — from student registration and cart management through to real-time order tracking and FCM push notifications — behaved correctly and reliably on a physical Android device connected to the live Firebase backend.
+
+Three categories of system testing were applied. Functional testing evaluated all nine core user scenarios, covering both the student and staff interfaces. Security testing validated the Firestore security rules using the Firebase Console Rules Playground to confirm that role-based access boundaries were correctly enforced. Performance testing measured key response times — including application launch, order placement propagation, and real-time status updates — to verify that the system met the responsiveness requirements defined during the design phase.
+
+In addition, a UAT session was conducted in two stages: a developer-led role simulation using two devices simultaneously, and a peer review involving USIU-Africa students who used the application as real users. Feedback from these sessions informed the Key Findings and Impact Analysis sections that follow. Together, these testing activities confirmed that the system is functionally complete, secure, and ready for deployment as a working prototype.

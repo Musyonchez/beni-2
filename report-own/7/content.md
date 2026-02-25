@@ -1,0 +1,5 @@
+# CHAPTER 7: TESTING AND EVALUATION
+
+This chapter documents the testing and evaluation conducted on the USIU Cafeteria Ordering System to validate its functionality, security, performance, and usability across all three user roles — student, staff, and administrator. Testing was carried out through a combination of unit-level code inspection, manual system test cases executed on a physical Android device, Firestore security rule verification via the Firebase Console Rules Playground, and a User Acceptance Testing (UAT) session involving the developer and peer participants.
+
+The testing process covered the complete student order lifecycle — registration, menu browsing, cart management, wallet payment, real-time order tracking, and FCM push notifications — as well as staff-side operations including order management and wallet top-up. Security testing verified that Firestore rules correctly enforce role-based access boundaries, and performance benchmarks measured real-time data propagation speeds and application launch time. The findings confirm that the system meets its functional and non-functional requirements and is ready for prototype deployment.
