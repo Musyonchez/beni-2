@@ -25,10 +25,10 @@ ganttDiagram {
   }
 }
 </style>
-title Figure 11: USIU Cafeteria Ordering System — Project Timeline (Sep–Dec 2025)
+caption Figure 11: USIU Cafeteria Ordering System — Project Timeline (Jan–Apr 2026)
 printscale weekly
 
-project starts 2025-09-01
+project starts 2026-01-01
 
 -- Phase 1: Research and Design (Weeks 1-4) --
 [Research and Analysis] lasts 1 week

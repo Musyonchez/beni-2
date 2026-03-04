@@ -34,6 +34,8 @@ OrdersViewModel manages the student's active and historical orders, using Firest
 
 > [Figure 32: MVVM data flow — CartViewModel and WalletViewModel observing Firestore via FirestoreRepository, with Fragments observing LiveData for UI updates]
 
+Figure 32 illustrates the MVVM data flow. Fragments hold no direct reference to Firestore; they interact exclusively with ViewModels, which delegate all persistence operations to FirestoreRepository. This layering ensures that a screen rotation or tab switch does not restart a Firestore listener, as the ViewModel survives the Fragment lifecycle and continues emitting updates to whichever Fragment instance is currently active.
+
 ## iv. Supabase Edge Functions
 
 Two Supabase Edge Functions implement the server-side automation that requires a trusted execution environment outside the Android app. Both functions are written in TypeScript and run on the Deno runtime. They authenticate incoming HTTP requests using a shared secret (FUNCTIONS_SECRET) passed as a Bearer token in the Authorization header. The secret is stored in Supabase project settings and is also embedded in the Android app's gradle.properties file, which is excluded from version control via .gitignore to prevent its exposure in source code.

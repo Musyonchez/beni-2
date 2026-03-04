@@ -26,6 +26,8 @@ Composite indexes deployed to Firestore enable the compound queries required by 
 
 > [Figure 39: Firebase Firestore SDK — addSnapshotListener on the orders collection in FirestoreRepository.listenToStudentOrders(), returning a LiveData-backed real-time order list]
 
+Figure 39 shows the addSnapshotListener call within listenToStudentOrders(). The listener is attached once when the ViewModel initialises and remains active for the lifetime of the student's session. Each QuerySnapshot delivered by Firestore is mapped to a list of Order objects using toObject(Order.class) and posted to the MutableLiveData, which OrdersFragment observes to update its RecyclerView without any manual refresh.
+
 ## 3. Firebase Cloud Messaging (FCM) SDK
 
 The Firebase Cloud Messaging SDK handles push notification delivery from the Supabase Edge Functions to student devices. On the Android client side, a FirebaseMessagingService subclass overrides the onNewToken callback to capture the device's FCM registration token whenever it is refreshed. The new token is immediately written to the fcmToken field of the authenticated user's Firestore document, ensuring the edge functions always have access to an up-to-date delivery address.
@@ -33,6 +35,8 @@ The Firebase Cloud Messaging SDK handles push notification delivery from the Sup
 Push notifications are sent from the Supabase Edge Functions using the Firebase Admin SDK's messaging().send() method, which accepts a notification payload and a target FCM token. Notifications are received by the Android OS and displayed as system notifications even when the app is in the background. When the app is in the foreground, the onMessageReceived callback allows the app to handle the notification programmatically — for example, by refreshing the Orders tab to immediately show the updated status.
 
 > [Figure 40: FCM SDK integration — onNewToken writes fcmToken to Firestore; edge function reads token and sends notification via Firebase Admin messaging().send()]
+
+Figure 40 illustrates the two-phase FCM integration. The onNewToken callback runs automatically whenever Firebase rotates the device's registration token; the immediate Firestore write ensures edge functions always hold a valid delivery address. The notification dispatch path is entirely server-side, keeping the student device's role passive — it only receives notifications, never initiates them.
 
 ## 4. Supabase Edge Functions HTTP API
 
@@ -43,6 +47,8 @@ The Android app's FirestoreRepository.notifyOrderReady() method constructs an HT
 The cron-job.org service sends HTTP POST requests to the process-cutoff endpoint with a JSON body specifying the mealSlot. These requests are authenticated with the same FUNCTIONS_SECRET Bearer token. The edge functions respond with an HTTP 200 status and a JSON summary of the processing result (e.g., number of confirmed and cancelled pre-orders), which cron-job.org logs for monitoring purposes.
 
 > [Figure 41: Supabase Edge Functions HTTP API — Android HTTP POST to notify-order-ready with FUNCTIONS_SECRET Bearer token and JSON payload containing orderId and userId]
+
+Figure 41 shows the HTTP API call from the Android app to the notify-order-ready edge function. The call is dispatched on a background thread immediately after the Firestore status write, using the FUNCTIONS_SECRET stored in BuildConfig to authenticate the request. The response is ignored by the app; if the network call fails, the student's in-app status chip already reflects the updated state through the active Firestore snapshot listener.
 
 ## 5. Firebase Admin SDK (Next.js API Routes)
 

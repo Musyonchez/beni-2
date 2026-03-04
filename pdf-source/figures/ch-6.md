@@ -10,7 +10,7 @@ Figures that show running app screens, Firestore console views, code listings, C
 @startuml Figure23_AuthRoleRouting
 skinparam backgroundColor white
 skinparam defaultFontName Arial
-title Figure 23: LoginActivity — Firebase Authentication and Role-based Routing
+caption Figure 23: LoginActivity — Firebase Authentication and Role-based Routing
 
 start
 :Enter email and password;
@@ -99,7 +99,7 @@ endif
 skinparam classAttributeIconSize 0
 skinparam backgroundColor white
 skinparam defaultFontName Arial
-title Figure 31: FirestoreRepository — Key Method Signatures
+caption Figure 31: FirestoreRepository — Key Method Signatures
 
 class FirestoreRepository {
   -db : FirebaseFirestore
@@ -132,7 +132,7 @@ class FirestoreRepository {
 skinparam backgroundColor white
 skinparam defaultFontName Arial
 skinparam componentStyle rectangle
-title Figure 32: MVVM Data Flow — Android Application
+caption Figure 32: MVVM Data Flow — Android Application
 
 package "Fragment Layer (View)" {
   [MenuFragment] as MF
@@ -185,7 +185,7 @@ REPO --> [preOrders] : set / update
 @startuml Figure33_ProcessCutoffLogic
 skinparam backgroundColor white
 skinparam defaultFontName Arial
-title Figure 33: process-cutoff Edge Function — Logic Flow
+caption Figure 33: process-cutoff Edge Function — Logic Flow
 
 start
 :Receive HTTP POST from cron-job.org\n(mealSlot: "lunch" or "dinner");
@@ -221,7 +221,7 @@ endif
 @startuml Figure34_FragmentNavigation
 skinparam backgroundColor white
 skinparam defaultFontName Arial
-title Figure 34: MainActivity — Fragment Navigation (hide/show pattern)
+caption Figure 34: MainActivity — Fragment Navigation (hide/show pattern)
 
 start
 :LoginActivity routes role = "student"\nto MainActivity;
@@ -258,7 +258,7 @@ repeat while (Session active?)
 @startuml Figure35_CartWalletIntegration
 skinparam backgroundColor white
 skinparam defaultFontName Arial
-title Figure 35: Cart-Wallet Integration — placeOrderWithWalletDeduction()
+caption Figure 35: Cart-Wallet Integration — placeOrderWithWalletDeduction()
 
 participant "CartFragment" as CF
 participant "WalletViewModel" as WVM
@@ -298,7 +298,7 @@ CF -> CF : Show "Order placed" snackbar
 @startuml Figure36_OrderStatusPipeline
 skinparam backgroundColor white
 skinparam defaultFontName Arial
-title Figure 36: Order Status Pipeline — staff marks Ready to student notification
+caption Figure 36: Order Status Pipeline — staff marks Ready to student notification
 
 participant "StaffOrdersFragment\n(Staff device)" as Staff
 participant "FirestoreRepository" as REPO
@@ -331,7 +331,7 @@ end note
 @startuml Figure37_PreOrderCutoffIntegration
 skinparam backgroundColor white
 skinparam defaultFontName Arial
-title Figure 37: Pre-order Cut-off Integration — end-to-end flow
+caption Figure 37: Pre-order Cut-off Integration — end-to-end flow
 
 participant "cron-job.org" as CRON
 participant "process-cutoff\n(Supabase Edge Function)" as EF
@@ -370,7 +370,7 @@ EF --> CRON : HTTP 200 { confirmed: N, cancelled: M }
 @startuml Figure38_AuthRegistrationFlow
 skinparam backgroundColor white
 skinparam defaultFontName Arial
-title Figure 38: Firebase Authentication API — Student Registration Flow
+caption Figure 38: Firebase Authentication API — Student Registration Flow
 
 participant "RegisterActivity\n(Android)" as RA
 participant "FirebaseAuth" as AUTH
@@ -404,7 +404,7 @@ RA -> RA : finish() — clear back stack
 @startuml Figure40_FCMIntegration
 skinparam backgroundColor white
 skinparam defaultFontName Arial
-title Figure 40: FCM SDK Integration — token registration and notification delivery
+caption Figure 40: FCM SDK Integration — token registration and notification delivery
 
 participant "Android OS\n/ Firebase Messaging" as OS
 participant "MyFirebaseMessagingService\n(Android)" as FMS
@@ -440,7 +440,7 @@ end
 @startuml Figure41_SupabaseHTTPAPI
 skinparam backgroundColor white
 skinparam defaultFontName Arial
-title Figure 41: Supabase Edge Functions HTTP API — notify-order-ready call
+caption Figure 41: Supabase Edge Functions HTTP API — notify-order-ready call
 
 participant "FirestoreRepository\n(Android)" as REPO
 participant "OkHttp (background thread)" as HTTP
@@ -473,7 +473,7 @@ end note
 @startuml Figure42_AdminSDKStaffCreation
 skinparam backgroundColor white
 skinparam defaultFontName Arial
-title Figure 42: Firebase Admin SDK — Staff Account Creation via Next.js API Route
+caption Figure 42: Firebase Admin SDK — Staff Account Creation via Next.js API Route
 
 participant "Admin Panel\n(Browser)" as BROWSER
 participant "Next.js API Route\n/api/create-staff\n(server-side)" as API

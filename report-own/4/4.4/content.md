@@ -2,7 +2,7 @@
 
 A Gantt chart is a visual project management tool used to plan, schedule, and monitor the progress of tasks within a project. The Gantt chart for the USIU Cafeteria Ordering System outlines every stage of the project lifecycle — from research and system design through development and testing to final submission — across a 13-week timeline from September to December 2025.
 
-> [Figure 11: Gantt chart — USIU Cafeteria Ordering System Project Timeline (Sep 2025 – Dec 2025)]
+> [Figure 11: Gantt chart — USIU Cafeteria Ordering System Project Timeline (Jan 2026 – Apr 2026)]
 >
 > Phase 1: Research & Design (Weeks 1–4)
 > - Week 1: Research & Analysis

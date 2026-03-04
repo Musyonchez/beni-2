@@ -12,7 +12,7 @@ Figures marked **[NOT PLANTUML — placeholder]** must be drawn manually (Figma,
 skinparam componentStyle rectangle
 skinparam backgroundColor white
 skinparam defaultFontName Arial
-title Figure 12: System Architecture Diagram
+caption Figure 12: System Architecture Diagram
 
 package "Presentation Layer" {
   [Android App\n(Java + XML, Material Design 3)\nStudent & Staff roles] as android
@@ -60,7 +60,7 @@ left to right direction
 skinparam actorStyle awesome
 skinparam backgroundColor white
 skinparam defaultFontName Arial
-title Figure 13: Use Case Diagram
+caption Figure 13: Use Case Diagram
 
 actor Student
 actor "Staff (Cashier)" as Staff
@@ -144,7 +144,7 @@ hide circle
 skinparam classAttributeIconSize 0
 skinparam backgroundColor white
 skinparam defaultFontName Arial
-title Figure 14: Entity Relationship Diagram (ERD)
+caption Figure 14: Entity Relationship Diagram (ERD)
 
 entity "users" as users {
   * uid : String <<PK>>
@@ -263,7 +263,7 @@ users       ||--o{ walletTransactions : "performed by (staffId)"
 @startuml Figure18a_FlowchartA
 skinparam backgroundColor white
 skinparam defaultFontName Arial
-title Figure 18a: Regular Order Flow
+caption Figure 18a: Regular Order Flow
 
 start
 :Student launches app;
@@ -306,7 +306,7 @@ endif
 @startuml Figure18b_FlowchartB
 skinparam backgroundColor white
 skinparam defaultFontName Arial
-title Figure 18b: Pre-order Cut-off Flow
+caption Figure 18b: Pre-order Cut-off Flow
 
 start
 :cron-job.org fires HTTP POST\nto process-cutoff edge function\n(10:00 AM or 5:00 PM EAT);
@@ -338,7 +338,7 @@ stop
 @startuml Figure19_ActivityDiagram
 skinparam backgroundColor white
 skinparam defaultFontName Arial
-title Figure 19: Activity Diagram — Order & Pre-order Lifecycle
+caption Figure 19: Activity Diagram — Order & Pre-order Lifecycle
 
 |Student|
 start
@@ -415,7 +415,7 @@ skinparam backgroundColor white
 skinparam defaultFontName Arial
 skinparam sequenceArrowThickness 1.5
 skinparam sequenceParticipant underline
-title Figure 20a: Sequence Diagram — Regular Order Placement
+caption Figure 20a: Sequence Diagram — Regular Order Placement
 
 participant "Student\n(Android)" as Student
 participant "FirebaseAuth" as Auth
@@ -463,7 +463,7 @@ FCM --> Student : FCM push notification
 skinparam backgroundColor white
 skinparam defaultFontName Arial
 skinparam sequenceArrowThickness 1.5
-title Figure 20b: Sequence Diagram — Pre-order Cut-off Execution
+caption Figure 20b: Sequence Diagram — Pre-order Cut-off Execution
 
 participant "cron-job.org" as Cron
 participant "process-cutoff\n(Supabase Edge Fn)" as Fn
@@ -504,7 +504,7 @@ Fn --> Cron : 200 OK (execution complete)
 skinparam classAttributeIconSize 0
 skinparam backgroundColor white
 skinparam defaultFontName Arial
-title Figure 21: Class Diagram — Android Application
+caption Figure 21: Class Diagram — Android Application
 
 package "Model" {
   class MenuItem {

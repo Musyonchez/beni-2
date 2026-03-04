@@ -24,6 +24,8 @@ The estimated wait time displayed in CartFragment is computed once when the frag
 
 > [Figure 35: Cart-Wallet integration — placeOrderWithWalletDeduction() Firestore runTransaction atomically deducting balance, writing order, and writing walletTransactions document]
 
+Figure 35 shows the cart-to-order transaction sequence. The runTransaction encompasses four operations — reading the current balance, writing the deducted balance, writing the order document, and writing the walletTransactions record — as a single atomic unit on the Firestore server. This guarantees that no partial state can persist regardless of network conditions or concurrent requests from other devices.
+
 ## iii. Order Status Flow Integration
 
 The order status lifecycle integrates the staff's Android interface, Firestore, the Supabase notify-order-ready Edge Function, and the student's Android interface through a coordinated sequence of events.
@@ -33,6 +35,8 @@ When a staff member taps "Mark Ready" in StaffOrdersFragment, the fragment calls
 This integration means the student receives both a real-time in-app UI update (via the Firestore listener) and a push notification (via FCM), regardless of whether the app is foregrounded. The notification call to the edge function is fail-silent: if the network request fails, the order status has already been updated in Firestore, so the student's in-app view will still reflect the "Ready" state. The notification is a supplementary alert, not the primary status mechanism.
 
 > [Figure 36: Order status pipeline — staff marks Ready, Firestore write updates student UI via snapshot listener, Android triggers HTTP POST to notify-order-ready edge function, FCM push delivered to student]
+
+Figure 36 shows the order status pipeline. The Firestore write is the primary mechanism driving the student's in-app update; the subsequent HTTP POST to the edge function is a supplementary notification path. Because the student's OrdersFragment holds an active snapshot listener, the status chip transitions from blue to green within milliseconds of the staff action, independent of FCM delivery.
 
 ## iv. Pre-order Cut-off Integration
 

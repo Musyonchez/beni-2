@@ -14,6 +14,8 @@ A signed release APK was generated using Android Studio's "Generate Signed Bundl
 
 > [Figure 43: Android build.gradle — Firebase BOM, Material Design 3, Glide, ViewModel/LiveData dependencies, and BuildConfig field for FUNCTIONS_SECRET]
 
+Figure 43 shows the module-level build.gradle configuration. The Firebase BOM ensures all Firebase SDK modules use compatible versions without requiring individual version declarations. The buildConfigField entry for FUNCTIONS_SECRET generates a compile-time constant from gradle.properties, keeping the secret out of source code while making it available at runtime as BuildConfig.FUNCTIONS_SECRET.
+
 ## 2. Firestore Security Rules Deployment
 
 Firestore security rules enforce role-based access control at the database level, ensuring that students can only read their own data, staff can access order and menu data, and admin operations are blocked at the client SDK level (forcing them through the Admin SDK in Next.js API routes).
@@ -23,6 +25,8 @@ The rules define four helper functions: isStudent() checks that the authenticate
 The rules were deployed to the Firebase project using the Firebase CLI's firebase deploy --only firestore:rules command, making them active immediately across all client connections.
 
 > [Figure 44: Firestore security rules — isStudent(), isStaff(), isAdmin(), isPrivileged() helper functions and representative collection-level access rules]
+
+Figure 44 shows the deployed Firestore security rules. The four helper functions consolidate role checks into reusable expressions, keeping individual collection rules concise. The isPrivileged() helper in particular allows staff and admin access to be granted with a single function call rather than duplicating role comparisons across every collection block, reducing the risk of misconfiguration.
 
 ## 3. Firestore Composite Indexes Deployment
 
@@ -38,6 +42,8 @@ The FUNCTIONS_SECRET and the Firebase service account credentials (a JSON key fi
 
 > [Figure 45: Supabase CLI deployment — supabase functions deploy process-cutoff and supabase secrets set for FUNCTIONS_SECRET and Firebase service account credentials]
 
+Figure 45 shows the Supabase CLI deployment commands. Each supabase functions deploy call uploads the compiled TypeScript function and makes it immediately available at its HTTPS endpoint. The supabase secrets set commands inject the FUNCTIONS_SECRET and Firebase service account credentials into the Deno runtime as environment variables, keeping all sensitive values entirely off the codebase and out of version control.
+
 ## 5. cron-job.org Scheduling Configuration
 
 Two cron jobs were created in cron-job.org to trigger the process-cutoff Edge Function on the required schedule. The first job is configured to run at 07:00 UTC daily, corresponding to 10:00 AM East Africa Time, and sends an HTTP POST to the process-cutoff URL with the request body containing the mealSlot field set to "lunch". The second job runs at 14:00 UTC daily (5:00 PM EAT) with mealSlot set to "dinner". Both jobs include the Authorization header with the Bearer token set to the FUNCTIONS_SECRET value.
@@ -45,6 +51,8 @@ Two cron jobs were created in cron-job.org to trigger the process-cutoff Edge Fu
 cron-job.org provides a web dashboard showing the execution history, response code, and response body for each job run. This serves as the primary monitoring tool for the pre-order cut-off automation, allowing the administrator to verify that each day's processing completed successfully and to inspect the summary of confirmed and cancelled pre-orders returned by the edge function.
 
 > [Figure 46: cron-job.org scheduling configuration — two HTTP POST jobs at 07:00 UTC (lunch) and 14:00 UTC (dinner) targeting the process-cutoff Supabase Edge Function]
+
+Figure 46 shows the cron-job.org scheduling configuration. The two jobs are staggered at 07:00 UTC and 14:00 UTC — corresponding to the 10:00 AM and 5:00 PM East Africa Time cut-offs — ensuring pre-orders are processed precisely at the configured deadlines. The execution history log provides a daily audit trail confirming that each cut-off run completed with an HTTP 200 response and a valid processing summary.
 
 ## 6. Next.js Admin Panel Deployment (Vercel)
 
@@ -55,4 +63,6 @@ The Firebase service account credentials required by the Admin SDK in the Next.j
 The Vercel deployment is triggered automatically on each push to the main branch, making it straightforward to roll out updates to the admin panel. The admin panel is served over HTTPS by default on Vercel's infrastructure, ensuring encrypted communication between the administrator's browser and the Next.js server.
 
 > [Figure 47: Vercel deployment dashboard — Next.js admin panel build log, environment variable configuration, and production deployment URL]
+
+Figure 47 shows the Vercel deployment dashboard. Automatic deployment on each push to the main branch eliminates manual steps for admin panel updates. The environment variable list confirms that the Firebase service account credentials are stored securely server-side, while the NEXT_PUBLIC_ Firebase config values are separately scoped for safe client-side inclusion within the bounds of the Firestore security rules.
 
