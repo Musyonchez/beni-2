@@ -4,6 +4,8 @@ Strathmore University, one of Kenya's most technology-forward private universiti
 
 > [Figure 10: Strathmore University cafeteria — QR code menu board at the entrance with static daily menu PDF]
 
+Figure 10 above shows the QR code board posted at the Strathmore University cafeteria entrance, which links students to a static daily menu PDF when scanned — the sole digital touchpoint in an otherwise fully manual food service operation.
+
 The Strathmore QR menu represents the most advanced local example of digital engagement with university food service, yet it illustrates how limited that engagement remains. The single innovation — moving the menu from a physical board to a phone screen — does provide genuine value: students can check availability before committing to the queue. However, it addresses only one of the five problems identified in this project's problem statement. Queuing, pre-ordering, staff demand visibility, and cashless payment are all left entirely unchanged.
 
 Strathmore's initiative is nonetheless instructive in two ways. First, it demonstrates that even a minimal digital intervention (a QR code linking to a PDF) is adopted and used by students, confirming that the target audience is willing to engage with digital food service tools on their phones. Second, it establishes the immediate local benchmark — the most any Kenyan university has currently done is display a menu digitally. The USIU Cafeteria Ordering System is designed to move well beyond this baseline, delivering a fully interactive, order-placed, wallet-enabled, and pre-schedulable mobile platform that addresses the complete problem rather than a single dimension of it.

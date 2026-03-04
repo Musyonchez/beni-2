@@ -4,6 +4,8 @@ The University of Nairobi operates cafeteria facilities across its main and sate
 
 > [Figure 9: UoN main campus cafeteria — physical queuing at the counter during peak lunch hour]
 
+Figure 9 above shows the UoN main campus cafeteria during peak lunch hour, with students queuing at the counter in an entirely manual process of verbal ordering and cash payment — no digital interface at any stage of the transaction.
+
 The UoN cafeteria, despite serving one of East Africa's largest university communities, has not been the subject of any documented digitisation effort. Its continued reliance on cash and manual queuing reflects both the resource constraints common to public universities in Kenya and the absence of a strong institutional mandate for modernising food service. From a systems perspective, it offers no technical model to build upon — its value in this review is as a baseline that defines what the status quo looks like for most Kenyan university cafeterias.
 
 The scale of the queuing problem at UoN, serving thousands of students with limited counter capacity and no pre-ordering, directly mirrors the problem at USIU-A, albeit at greater magnitude. This parallel reinforces the relevance of the proposed system within the local university context. If a smaller, more resource-capable institution like USIU-A does not address this problem proactively, the trajectory points toward the same entrenched manual operations seen at UoN. The proposed USIU Cafeteria Ordering System is designed to break from that trajectory by introducing mobile ordering, advance scheduling, and cashless payment from the outset.

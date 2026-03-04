@@ -228,32 +228,122 @@ users       ||--o{ walletTransactions : "performed by (staffId)"
 
 ## Figure 15: Level 0 Context Diagram
 
-> **[NOT PLANTUML — placeholder]**
-> Draw manually in draw.io / Lucidchart using standard DFD notation:
-> - External entities (rectangles): Student, Staff, Admin, System (cron-job.org / Supabase)
-> - Single central process circle: "USIU Cafeteria Ordering System"
-> - Data flows (arrows): menu requests, order data, pre-order schedules, wallet queries → System; menu data, confirmations, status updates, notifications, wallet info ← System; order status updates, menu changes, wallet ops → System; incoming orders, updated menus ← System; menu CRUD, staff account creation → System; menus, user directory ← System; scheduled cut-off triggers → System.
+```mermaid
+flowchart LR
+    Student[Student]
+    Staff[Staff]
+    Admin[Admin]
+    Cron["cron-job.org / Supabase"]
+    USIU(["USIU Cafeteria\nOrdering System"])
+
+    Student -->|"menu requests, orders,\npre-orders, wallet queries"| USIU
+    USIU -->|"menu data, confirmations,\nstatus updates, notifications"| Student
+    Staff -->|"order status updates,\nmenu changes, wallet ops"| USIU
+    USIU -->|"incoming orders,\nupdated menus"| Staff
+    Admin -->|"menu CRUD,\nstaff account creation"| USIU
+    USIU -->|"menus, user directory"| Admin
+    Cron -->|"scheduled cut-off triggers"| USIU
+```
+
+_Figure 15: Level 0 Context Diagram_
 
 ---
 
 ## Figure 16: Level 1 DFD
 
-> **[NOT PLANTUML — placeholder]**
-> Draw manually in draw.io / Lucidchart using standard DFD notation.
-> Processes (numbered circles): 1. Authenticate User, 2. Load Menu, 3. Manage Cart, 4. Place Order, 5. Deduct Wallet, 6. Track Order, 7. Send Notification, 8. Manage Pre-order, 9. Execute Cut-off, 10. Staff: Update Order Status, 11. Staff: Manage Menu, 12. Staff: Wallet Operation, 13. Admin: Manage Users.
-> Data stores (open rectangles): D1 users, D2 menuItems, D3 orders, D4 preOrders, D5 walletTransactions.
-> External entities (rectangles): Student, Staff, Admin, cron-job.org.
+```mermaid
+flowchart TD
+    Student[Student]
+    Staff[Staff]
+    Admin[Admin]
+    Cron["cron-job.org"]
+
+    D1[(D1 users)]
+    D2[(D2 menuItems)]
+    D3[(D3 orders)]
+    D4[(D4 preOrders)]
+    D5[(D5 walletTransactions)]
+
+    P1(["1. Authenticate User"])
+    P2(["2. Load Menu"])
+    P3(["3. Manage Cart"])
+    P4(["4. Place Order"])
+    P5(["5. Deduct Wallet"])
+    P6(["6. Track Order"])
+    P7(["7. Send Notification"])
+    P8(["8. Manage Pre-order"])
+    P9(["9. Execute Cut-off"])
+    P10(["10. Update Order Status"])
+    P11(["11. Manage Menu"])
+    P12(["12. Wallet Operation"])
+    P13(["13. Manage Users"])
+
+    Student --> P1 --> D1
+    Student --> P2 <--> D2
+    Student --> P3 --> P4
+    P4 --> D3
+    P4 --> P5
+    P5 <--> D1
+    P5 --> D5
+    Student --> P6
+    D3 --> P6 --> P7
+    Student --> P8 <--> D4
+    Cron --> P9
+    P9 <--> D4
+    P9 <--> D1
+    P9 --> D5
+    P9 --> P7
+    Staff --> P10 --> D3
+    P10 --> P7
+    Staff --> P11 <--> D2
+    Staff --> P12 <--> D1
+    P12 --> D5
+    Admin --> P13 <--> D1
+```
+
+_Figure 16: Level 1 DFD_
 
 ---
 
 ## Figure 17: Level 2 DFD
 
-> **[NOT PLANTUML — placeholder]**
-> Draw manually in draw.io / Lucidchart. Expand two processes from Level 1:
->
-> **Place Order sub-processes:** 4.1 Receive cart & payment selection, 4.2 Validate cart & item availability, 4.3 Check walletBalance >= total (wallet path), 4.4 runTransaction() — deduct balance + write walletTransaction + write order(Pending), 4.5 Return error if insufficient, 4.6 Write order(Pending) directly (cash path), 4.7 Return orderId, 4.8 Clear CartViewModel.
->
-> **Execute Cut-off sub-processes:** 9.1 Receive cron HTTP POST + authenticate FUNCTIONS_SECRET, 9.2 Query preOrders (mealSlot, status=scheduled, today), 9.3 Read walletBalance per pre-order, 9.4 runTransaction() — deduct + confirm (if sufficient), 9.5 Cancel + send FCM (if insufficient), 9.6 Create next recurring occurrence, 9.7 Log result.
+```mermaid
+flowchart TD
+    subgraph PO["Process 4: Place Order"]
+        P41(["4.1 Receive cart\n& payment selection"])
+        P42(["4.2 Validate cart\n& availability"])
+        P43{"Wallet\npayment?"}
+        P44{"Balance\nsufficient?"}
+        P45(["4.4 runTransaction:\ndeduct + write order\n+ write walletTransaction"])
+        P46(["4.5 Insufficient\nbalance error"])
+        P47(["4.6 Write order\nPending — cash path"])
+        P48(["4.7/4.8 Return orderId\n+ clear CartViewModel"])
+
+        P41 --> P42 --> P43
+        P43 -->|yes| P44
+        P43 -->|no — cash| P47
+        P44 -->|yes| P45 --> P48
+        P44 -->|no| P46
+        P47 --> P48
+    end
+
+    subgraph CO["Process 9: Execute Cut-off"]
+        P91(["9.1 Receive HTTP POST\n+ authenticate secret"])
+        P92(["9.2 Query preOrders\n(mealSlot, scheduled, today)"])
+        P93(["9.3 Read walletBalance\nper pre-order"])
+        P94{"Balance\nsufficient?"}
+        P95(["9.4 runTransaction:\ndeduct + confirm"])
+        P96(["9.5 Cancel\n+ send FCM"])
+        P97(["9.6 Create next\nrecurring occurrence"])
+        P98(["9.7 Log result"])
+
+        P91 --> P92 --> P93 --> P94
+        P94 -->|yes| P95 --> P97 --> P98
+        P94 -->|no| P96 --> P98
+    end
+```
+
+_Figure 17: Level 2 DFD_
 
 ---
 
