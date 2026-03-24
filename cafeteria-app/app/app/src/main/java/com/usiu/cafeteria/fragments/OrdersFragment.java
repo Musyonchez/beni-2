@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
@@ -24,6 +25,7 @@ import com.usiu.cafeteria.repository.FirestoreRepository;
 import com.usiu.cafeteria.viewmodels.OrdersViewModel;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class OrdersFragment extends Fragment {
@@ -32,6 +34,8 @@ public class OrdersFragment extends Fragment {
     private RecyclerView  rvActive, rvHistory;
     private TextView      tvEmpty;
     private int           activeTab = 0;
+    private List<Order>   allHistory = new ArrayList<>();
+    private int           historyFilter = 0; // 0=today, 1=week, 2=month, 3=all
 
     @Nullable
     @Override
@@ -55,6 +59,17 @@ public class OrdersFragment extends Fragment {
         rvActive.setAdapter(activeAdapter);
         rvHistory.setAdapter(historyAdapter);
 
+        ChipGroup chipGroup = view.findViewById(R.id.chip_group_history_filter);
+        chipGroup.setOnCheckedStateChangeListener((group, checkedIds) -> {
+            if (checkedIds.isEmpty()) return;
+            int id = checkedIds.get(0);
+            if (id == R.id.chip_filter_today)       historyFilter = 0;
+            else if (id == R.id.chip_filter_week)   historyFilter = 1;
+            else if (id == R.id.chip_filter_month)  historyFilter = 2;
+            else                                    historyFilter = 3;
+            applyHistoryFilter();
+        });
+
         TabLayout tabLayout = view.findViewById(R.id.tab_layout);
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override public void onTabSelected(TabLayout.Tab tab) {
@@ -77,7 +92,8 @@ public class OrdersFragment extends Fragment {
                 }
             }
             activeAdapter.submitList(active);
-            historyAdapter.submitList(history);
+            allHistory = history;
+            applyHistoryFilter();
             refreshTabVisibility();
         });
     }
@@ -102,15 +118,54 @@ public class OrdersFragment extends Fragment {
                 .show();
     }
 
+    private void applyHistoryFilter() {
+        List<Order> filtered = new ArrayList<>();
+        long startOfDay = getStartOfDay();
+        long startOfWeek = startOfDay - 6L * 24 * 60 * 60 * 1000;
+        long startOfMonth = getStartOfMonth();
+
+        for (Order o : allHistory) {
+            if (o.getCreatedAt() == null) continue;
+            long ts = o.getCreatedAt().toDate().getTime();
+            if (historyFilter == 0 && ts >= startOfDay) filtered.add(o);
+            else if (historyFilter == 1 && ts >= startOfWeek) filtered.add(o);
+            else if (historyFilter == 2 && ts >= startOfMonth) filtered.add(o);
+            else if (historyFilter == 3) filtered.add(o);
+        }
+        historyAdapter.submitList(filtered);
+    }
+
+    private long getStartOfDay() {
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        return cal.getTimeInMillis();
+    }
+
+    private long getStartOfMonth() {
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.DAY_OF_MONTH, 1);
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        return cal.getTimeInMillis();
+    }
+
     private void refreshTabVisibility() {
+        View filterBar = getView().findViewById(R.id.scroll_history_filter);
         if (activeTab == 0) {
             rvActive.setVisibility(View.VISIBLE);
             rvHistory.setVisibility(View.GONE);
+            filterBar.setVisibility(View.GONE);
             tvEmpty.setVisibility(activeAdapter.getItemCount() == 0
                     ? View.VISIBLE : View.GONE);
         } else {
             rvActive.setVisibility(View.GONE);
             rvHistory.setVisibility(View.VISIBLE);
+            filterBar.setVisibility(View.VISIBLE);
             tvEmpty.setVisibility(historyAdapter.getItemCount() == 0
                     ? View.VISIBLE : View.GONE);
         }

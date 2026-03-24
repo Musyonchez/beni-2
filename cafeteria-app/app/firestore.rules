@@ -14,8 +14,9 @@ service cloud.firestore {
     match /users/{userId} {
       allow read: if isOwner(userId) || isPrivileged();
       allow create: if isAuth() && isOwner(userId);
-      // walletBalance changed by staff; role changed by admin
-      allow update: if isPrivileged();
+      // Staff/admin can update anything; students can only deduct from wallet
+      allow update: if isPrivileged() ||
+        (isOwner(userId) && request.resource.data.walletBalance < resource.data.walletBalance);
     }
 
     match /menuItems/{itemId} {
@@ -28,7 +29,8 @@ service cloud.firestore {
       allow create: if isAuth() && request.resource.data.userId == request.auth.uid;
       allow update: if isPrivileged() ||
         (isAuth() && resource.data.userId == request.auth.uid
-          && request.resource.data.status == 'cancelled');
+          && request.resource.data.status == 'cancelled'
+          && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status']));
     }
 
     match /preOrders/{preOrderId} {
