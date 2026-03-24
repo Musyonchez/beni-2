@@ -36,7 +36,16 @@ public class StaffOrdersFragment extends Fragment {
 
         View tvEmpty = view.findViewById(R.id.tv_empty_staff_orders);
 
-        StaffOrdersAdapter adapter = new StaffOrdersAdapter(this::onOrderAction);
+        StaffOrdersAdapter adapter = new StaffOrdersAdapter(new StaffOrdersAdapter.OrderActionCallback() {
+            @Override
+            public void onAction(Order order, String newStatus) {
+                StaffOrdersFragment.this.onOrderAction(order, newStatus);
+            }
+            @Override
+            public void onCancel(Order order) {
+                StaffOrdersFragment.this.onCancelOrder(order);
+            }
+        });
         rv.setAdapter(adapter);
 
         activity.ordersViewModel.getAllActiveOrders().observe(getViewLifecycleOwner(), orders -> {
@@ -65,5 +74,25 @@ public class StaffOrdersFragment extends Fragment {
                         Snackbar.make(requireView(),
                                 getString(R.string.error_generic),
                                 Snackbar.LENGTH_SHORT).show());
+    }
+
+    private void onCancelOrder(Order order) {
+        new MaterialAlertDialogBuilder(requireContext())
+                .setTitle("Delete Order")
+                .setMessage("Delete order #" + (order.getOrderId() != null && order.getOrderId().length() > 6
+                        ? order.getOrderId().substring(0, 6).toUpperCase()
+                        : order.getOrderId()) + "?")
+                .setPositiveButton("Yes", (dialog, which) -> {
+                    FirestoreRepository.getInstance().cancelOrder(order.getOrderId())
+                            .addOnSuccessListener(unused -> {
+                                Snackbar.make(requireView(), "Order deleted", Snackbar.LENGTH_SHORT).show();
+                            })
+                            .addOnFailureListener(e ->
+                                    Snackbar.make(requireView(),
+                                            getString(R.string.error_generic),
+                                            Snackbar.LENGTH_SHORT).show());
+                })
+                .setNegativeButton("No", null)
+                .show();
     }
 }

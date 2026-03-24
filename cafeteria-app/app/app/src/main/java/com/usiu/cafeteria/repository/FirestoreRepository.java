@@ -166,6 +166,12 @@ public class FirestoreRepository {
         });
     }
 
+    /** Cancel an order by setting status to 'cancelled'. Students can cancel their own; staff can cancel any. */
+    public Task<Void> cancelOrder(String orderId) {
+        return db.collection("orders").document(orderId)
+                .update("status", "cancelled");
+    }
+
     /** Real-time listener for a student's own orders, newest first. */
     public ListenerRegistration listenToMyOrders(String userId,
                                                  EventListener<QuerySnapshot> listener) {

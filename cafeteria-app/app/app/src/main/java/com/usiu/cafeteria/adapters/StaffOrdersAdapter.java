@@ -23,6 +23,7 @@ public class StaffOrdersAdapter extends ListAdapter<Order, StaffOrdersAdapter.VH
 
     public interface OrderActionCallback {
         void onAction(Order order, String newStatus);
+        void onCancel(Order order);
     }
 
     private final OrderActionCallback callback;
@@ -56,7 +57,7 @@ public class StaffOrdersAdapter extends ListAdapter<Order, StaffOrdersAdapter.VH
     class VH extends RecyclerView.ViewHolder {
         final TextView tvName, tvItems, tvTotal, tvTime;
         final Chip chipPayment;
-        final MaterialButton btnAction;
+        final MaterialButton btnAction, btnDelete;
         final SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
 
         VH(View v) {
@@ -67,6 +68,7 @@ public class StaffOrdersAdapter extends ListAdapter<Order, StaffOrdersAdapter.VH
             tvTime      = v.findViewById(R.id.tv_order_time);
             chipPayment = v.findViewById(R.id.chip_payment);
             btnAction   = v.findViewById(R.id.btn_order_action);
+            btnDelete   = v.findViewById(R.id.btn_delete_staff_order);
         }
 
         void bind(Order order) {
@@ -93,6 +95,11 @@ public class StaffOrdersAdapter extends ListAdapter<Order, StaffOrdersAdapter.VH
                     isCash ? R.color.amber_100 : R.color.blue_100);
 
             bindActionButton(order);
+
+            // Delete button — show unless order is already cancelled
+            boolean isCancelled = "cancelled".equals(order.getStatus());
+            btnDelete.setVisibility(isCancelled ? View.GONE : View.VISIBLE);
+            btnDelete.setOnClickListener(v -> callback.onCancel(order));
         }
 
         void bindActionButton(Order order) {

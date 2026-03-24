@@ -8,6 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.chip.Chip;
 import com.usiu.cafeteria.R;
 import com.usiu.cafeteria.models.Order;
@@ -25,6 +26,15 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHolder
 
     private List<Order> orders = new ArrayList<>();
     private final List<Boolean> expanded = new ArrayList<>();
+    private final OnCancelListener cancelListener;
+
+    public interface OnCancelListener {
+        void onCancel(Order order);
+    }
+
+    public OrdersAdapter(OnCancelListener cancelListener) {
+        this.cancelListener = cancelListener;
+    }
 
     public void submitList(List<Order> newOrders) {
         this.orders = newOrders != null ? new ArrayList<>(newOrders) : new ArrayList<>();
@@ -70,6 +80,15 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHolder
         if (order.getCreatedAt() != null) {
             h.tvTime.setText(DATE_FMT.format(order.getCreatedAt().toDate()));
         }
+
+        // Show delete button only for pending/preparing orders
+        boolean canCancel = "pending".equals(order.getStatus()) || "preparing".equals(order.getStatus());
+        h.btnDeleteOrder.setVisibility(canCancel ? View.VISIBLE : View.GONE);
+        h.btnDeleteOrder.setOnClickListener(v -> {
+            if (cancelListener != null) {
+                cancelListener.onCancel(order);
+            }
+        });
 
         // Expand/collapse on tap
         h.itemView.setOnClickListener(v -> {
@@ -127,15 +146,17 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHolder
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvOrderId, tvItemsSummary, tvItemsFull, tvTotal, tvTime;
         Chip     chipStatus;
+        MaterialButton btnDeleteOrder;
 
         ViewHolder(View v) {
             super(v);
-            tvOrderId      = v.findViewById(R.id.tv_order_id);
-            chipStatus     = v.findViewById(R.id.chip_status);
-            tvItemsSummary = v.findViewById(R.id.tv_items_summary);
-            tvItemsFull    = v.findViewById(R.id.tv_items_full);
-            tvTotal        = v.findViewById(R.id.tv_total);
-            tvTime         = v.findViewById(R.id.tv_time);
+            tvOrderId        = v.findViewById(R.id.tv_order_id);
+            chipStatus       = v.findViewById(R.id.chip_status);
+            tvItemsSummary   = v.findViewById(R.id.tv_items_summary);
+            tvItemsFull      = v.findViewById(R.id.tv_items_full);
+            tvTotal          = v.findViewById(R.id.tv_total);
+            tvTime           = v.findViewById(R.id.tv_time);
+            btnDeleteOrder   = v.findViewById(R.id.btn_delete_order);
         }
     }
 }

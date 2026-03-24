@@ -15,7 +15,7 @@
         android:orientation="vertical"
         android:padding="12dp">
 
-        <!-- Header row: order ID + status chip -->
+        <!-- Header row: order ID + status chip + delete button -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -35,6 +35,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="false" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_delete_order"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="✕"
+                android:textColor="@android:color/holo_red_dark"
+                android:visibility="gone" />
 
         </LinearLayout>
 
