@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
     app:cardCornerRadius="12dp"
-    app:cardElevation="2dp">
+    app:cardElevation="3dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,7 +25,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textAppearance="?attr/textAppearanceTitleMedium" />
+                android:textAppearance="?attr/textAppearanceTitleMedium"
+                android:textColor="@color/navy" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_payment"
@@ -41,8 +42,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="✕"
-                android:textColor="@android:color/holo_red_dark" />
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                app:icon="@drawable/ic_delete"
+                app:iconTint="@android:color/holo_red_dark"
+                app:iconPadding="0dp" />
 
         </LinearLayout>
 
@@ -67,7 +71,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textAppearance="?attr/textAppearanceBodyMedium" />
+                android:textAppearance="?attr/textAppearanceBodyMedium"
+                android:textColor="@color/navy"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tv_order_time"
