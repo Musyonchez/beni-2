@@ -77,6 +77,7 @@
 
     <!-- Dashboard / Profile screen -->
     <string name="label_greeting">Hi, %s</string>
+    <string name="label_student_id_display">Student ID: %s</string>
     <string name="label_total_orders">Total Orders</string>
     <string name="label_active_orders">Active</string>
     <string name="label_active_staff_orders">Active Orders</string>
@@ -86,6 +87,15 @@
     <string name="label_transaction_history">Transaction History</string>
     <string name="empty_transactions">No transactions yet</string>
     <string name="btn_logout">Logout</string>
+    <string name="btn_view_transactions">Transactions</string>
+    <string name="label_active_order">Active Order</string>
+    <string name="stage_pending">Pending</string>
+    <string name="stage_preparing">Preparing</string>
+    <string name="stage_ready">Ready</string>
+    <string name="stage_collected">Collected</string>
+    <string name="btn_order_history">Order History</string>
+    <string name="btn_preorders_shortcut">Pre-orders</string>
+    <string name="nav_transactions">Transactions</string>
 
     <!-- Staff — orders -->
     <string name="btn_start_preparing">Start Preparing</string>
