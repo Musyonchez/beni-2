@@ -76,4 +76,14 @@ public class StaffMainActivity extends AppCompatActivity {
                 .show(target)
                 .commit();
     }
+
+    public void navigateToOrders() {
+        BottomNavigationView nav = findViewById(R.id.staff_bottom_nav);
+        nav.setSelectedItemId(R.id.nav_staff_orders);
+    }
+
+    public void navigateToMenu() {
+        BottomNavigationView nav = findViewById(R.id.staff_bottom_nav);
+        nav.setSelectedItemId(R.id.nav_staff_menu);
+    }
 }
