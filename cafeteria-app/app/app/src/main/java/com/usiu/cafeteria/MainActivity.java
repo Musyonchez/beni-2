@@ -17,6 +17,7 @@ import com.usiu.cafeteria.fragments.MenuFragment;
 import com.usiu.cafeteria.fragments.OrdersFragment;
 import com.usiu.cafeteria.fragments.PreOrdersFragment;
 import com.usiu.cafeteria.fragments.ProfileWalletFragment;
+import com.usiu.cafeteria.fragments.WalletTransactionsFragment;
 import com.usiu.cafeteria.viewmodels.CartViewModel;
 import com.usiu.cafeteria.viewmodels.OrdersViewModel;
 import com.usiu.cafeteria.viewmodels.WalletViewModel;
@@ -28,13 +29,15 @@ public class MainActivity extends AppCompatActivity {
     public WalletViewModel walletViewModel;
     public OrdersViewModel ordersViewModel;
 
-    private MenuFragment          menuFragment;
-    private CartFragment          cartFragment;
-    private OrdersFragment        ordersFragment;
-    private PreOrdersFragment     preOrdersFragment;
-    private ProfileWalletFragment profileWalletFragment;
+    private MenuFragment               menuFragment;
+    private CartFragment               cartFragment;
+    private OrdersFragment             ordersFragment;
+    private PreOrdersFragment          preOrdersFragment;
+    private ProfileWalletFragment      profileWalletFragment;
+    private WalletTransactionsFragment walletTxFragment;
 
     private Fragment activeFragment;
+    private boolean  walletTxVisible = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,15 +64,18 @@ public class MainActivity extends AppCompatActivity {
         ordersFragment        = new OrdersFragment();
         preOrdersFragment     = new PreOrdersFragment();
         profileWalletFragment = new ProfileWalletFragment();
+        walletTxFragment      = new WalletTransactionsFragment();
 
         // Add all fragments; show Dashboard (profile) initially
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.fragment_container, profileWalletFragment, "profile")
+                    .add(R.id.fragment_container, walletTxFragment,      "wallet_tx")
                     .add(R.id.fragment_container, menuFragment,          "menu")
                     .add(R.id.fragment_container, cartFragment,          "cart")
                     .add(R.id.fragment_container, ordersFragment,        "orders")
                     .add(R.id.fragment_container, preOrdersFragment,     "preorders")
+                    .hide(walletTxFragment)
                     .hide(menuFragment)
                     .hide(cartFragment)
                     .hide(ordersFragment)
@@ -91,12 +97,41 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showFragment(Fragment target) {
-        if (target == activeFragment) return;
+        if (target == activeFragment && !walletTxVisible) return;
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.hide(activeFragment);
+        if (walletTxVisible) ft.hide(walletTxFragment);
         ft.show(target);
         ft.commit();
         activeFragment = target;
+        walletTxVisible = false;
+    }
+
+    /** Open the wallet transactions sub-page (stays within Dashboard tab). */
+    public void showWalletTransactions() {
+        getSupportFragmentManager().beginTransaction()
+                .hide(profileWalletFragment)
+                .show(walletTxFragment)
+                .commit();
+        walletTxVisible = true;
+    }
+
+    /** Return from wallet transactions back to dashboard. */
+    public void showDashboard() {
+        getSupportFragmentManager().beginTransaction()
+                .hide(walletTxFragment)
+                .show(profileWalletFragment)
+                .commit();
+        walletTxVisible = false;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (walletTxVisible) {
+            showDashboard();
+            return;
+        }
+        super.onBackPressed();
     }
 
     /** Called by CartFragment after a successful order — navigate to Orders tab. */
@@ -109,5 +144,18 @@ public class MainActivity extends AppCompatActivity {
     public void navigateToMenu() {
         BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
         bottomNav.setSelectedItemId(R.id.nav_menu);
+    }
+
+    /** Called by Dashboard to jump to Orders > History tab. */
+    public void navigateToOrderHistory() {
+        ordersFragment.showHistoryTab();
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
+        bottomNav.setSelectedItemId(R.id.nav_orders);
+    }
+
+    /** Called by Dashboard to jump to Pre-orders tab. */
+    public void navigateToPreOrders() {
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
+        bottomNav.setSelectedItemId(R.id.nav_preorders);
     }
 }

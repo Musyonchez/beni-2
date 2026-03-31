@@ -154,6 +154,14 @@ public class OrdersFragment extends Fragment {
         return cal.getTimeInMillis();
     }
 
+    /** Called from MainActivity dashboard shortcut to jump directly to History tab. */
+    public void showHistoryTab() {
+        if (getView() == null) return;
+        TabLayout tabs = getView().findViewById(R.id.tab_layout);
+        TabLayout.Tab history = tabs != null ? tabs.getTabAt(1) : null;
+        if (history != null) history.select();
+    }
+
     private void refreshTabVisibility() {
         View filterBar = getView().findViewById(R.id.scroll_history_filter);
         if (activeTab == 0) {
