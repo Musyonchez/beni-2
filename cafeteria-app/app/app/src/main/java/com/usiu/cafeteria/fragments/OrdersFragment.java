@@ -32,7 +32,7 @@ public class OrdersFragment extends Fragment {
 
     private OrdersAdapter activeAdapter, historyAdapter;
     private RecyclerView  rvActive, rvHistory;
-    private TextView      tvEmpty;
+    private View          tvEmpty;
     private int           activeTab = 0;
     private List<Order>   allHistory = new ArrayList<>();
     private int           historyFilter = 0; // 0=today, 1=week, 2=month, 3=all
