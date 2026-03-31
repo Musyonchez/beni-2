@@ -47,13 +47,13 @@ public class StaffMainActivity extends AppCompatActivity {
         staffProfileFragment = new StaffProfileFragment();
 
         getSupportFragmentManager().beginTransaction()
+                .add(R.id.staff_fragment_container, staffProfileFragment, "STAFF_PROFILE")
                 .add(R.id.staff_fragment_container, staffOrdersFragment,  "STAFF_ORDERS")
                 .add(R.id.staff_fragment_container, staffMenuFragment,    "STAFF_MENU")
                 .add(R.id.staff_fragment_container, staffWalletFragment,  "STAFF_WALLET")
-                .add(R.id.staff_fragment_container, staffProfileFragment, "STAFF_PROFILE")
+                .hide(staffOrdersFragment)
                 .hide(staffMenuFragment)
                 .hide(staffWalletFragment)
-                .hide(staffProfileFragment)
                 .commit();
 
         BottomNavigationView bottomNav = findViewById(R.id.staff_bottom_nav);

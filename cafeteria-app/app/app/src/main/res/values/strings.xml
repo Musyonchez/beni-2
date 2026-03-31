@@ -6,13 +6,13 @@
     <string name="nav_cart">Cart</string>
     <string name="nav_orders">Orders</string>
     <string name="nav_preorders">Pre-order</string>
-    <string name="nav_profile">Profile</string>
+    <string name="nav_profile">Dashboard</string>
 
     <!-- Staff bottom nav -->
     <string name="nav_staff_orders">Orders</string>
     <string name="nav_staff_menu">Menu</string>
     <string name="nav_staff_wallet">Wallet</string>
-    <string name="nav_staff_profile">Profile</string>
+    <string name="nav_staff_profile">Dashboard</string>
 
     <!-- Auth -->
     <string name="label_email">Email</string>
@@ -75,7 +75,12 @@
     <string name="btn_confirm">Confirm</string>
     <string name="btn_cancel">Cancel</string>
 
-    <!-- Profile / Wallet screen -->
+    <!-- Dashboard / Profile screen -->
+    <string name="label_greeting">Hi, %s</string>
+    <string name="label_total_orders">Total Orders</string>
+    <string name="label_active_orders">Active</string>
+    <string name="label_active_staff_orders">Active Orders</string>
+    <string name="label_menu_items">Menu Items</string>
     <string name="label_wallet_balance">Wallet Balance</string>
     <string name="label_topup_info">Top up by paying cash at the counter</string>
     <string name="label_transaction_history">Transaction History</string>

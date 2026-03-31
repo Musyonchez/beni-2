@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
+        android:id="@+id/nav_staff_profile"
+        android:icon="@drawable/ic_nav_staff_profile"
+        android:title="@string/nav_staff_profile" />
+    <item
         android:id="@+id/nav_staff_orders"
         android:icon="@drawable/ic_nav_staff_orders"
         android:title="@string/nav_staff_orders" />
@@ -12,8 +16,4 @@
         android:id="@+id/nav_staff_wallet"
         android:icon="@drawable/ic_nav_staff_wallet"
         android:title="@string/nav_staff_wallet" />
-    <item
-        android:id="@+id/nav_staff_profile"
-        android:icon="@drawable/ic_nav_staff_profile"
-        android:title="@string/nav_staff_profile" />
 </menu>

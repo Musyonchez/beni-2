@@ -62,20 +62,20 @@ public class MainActivity extends AppCompatActivity {
         preOrdersFragment     = new PreOrdersFragment();
         profileWalletFragment = new ProfileWalletFragment();
 
-        // Add all fragments; show only Menu initially
+        // Add all fragments; show Dashboard (profile) initially
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
+                    .add(R.id.fragment_container, profileWalletFragment, "profile")
                     .add(R.id.fragment_container, menuFragment,          "menu")
                     .add(R.id.fragment_container, cartFragment,          "cart")
                     .add(R.id.fragment_container, ordersFragment,        "orders")
                     .add(R.id.fragment_container, preOrdersFragment,     "preorders")
-                    .add(R.id.fragment_container, profileWalletFragment, "profile")
+                    .hide(menuFragment)
                     .hide(cartFragment)
                     .hide(ordersFragment)
                     .hide(preOrdersFragment)
-                    .hide(profileWalletFragment)
                     .commit();
-            activeFragment = menuFragment;
+            activeFragment = profileWalletFragment;
         }
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);

@@ -28,21 +28,31 @@ public class StaffProfileFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        TextView tvName  = view.findViewById(R.id.tv_staff_name);
-        TextView tvEmail = view.findViewById(R.id.tv_staff_email);
+        StaffMainActivity activity = (StaffMainActivity) requireActivity();
+
+        TextView tvName        = view.findViewById(R.id.tv_staff_name);
+        TextView tvEmail       = view.findViewById(R.id.tv_staff_email);
+        TextView tvActiveOrders = view.findViewById(R.id.tv_active_orders);
+        TextView tvMenuItems   = view.findViewById(R.id.tv_menu_items);
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             tvEmail.setText(user.getEmail());
-            // load name from Firestore
             FirestoreRepository.getInstance().getUser(user.getUid())
                     .addOnSuccessListener(snap -> {
                         if (snap != null && snap.exists()) {
                             String name = snap.getString("name");
-                            tvName.setText(name != null ? name : user.getEmail());
+                            tvName.setText(getString(R.string.label_greeting,
+                                    name != null ? name : user.getEmail()));
                         }
                     });
         }
+
+        activity.ordersViewModel.getAllActiveOrders().observe(getViewLifecycleOwner(), list ->
+                tvActiveOrders.setText(list == null ? "0" : String.valueOf(list.size())));
+
+        activity.menuViewModel.getMenuItems().observe(getViewLifecycleOwner(), list ->
+                tvMenuItems.setText(list == null ? "0" : String.valueOf(list.size())));
 
         view.findViewById(R.id.btn_staff_logout).setOnClickListener(v -> {
             FirebaseAuth.getInstance().signOut();

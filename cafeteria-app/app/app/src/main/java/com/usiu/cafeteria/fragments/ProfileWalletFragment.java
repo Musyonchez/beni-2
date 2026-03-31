@@ -18,6 +18,7 @@ import com.usiu.cafeteria.MainActivity;
 import com.usiu.cafeteria.R;
 import com.usiu.cafeteria.adapters.WalletTransactionAdapter;
 import com.usiu.cafeteria.auth.LoginActivity;
+import com.usiu.cafeteria.viewmodels.OrdersViewModel;
 import com.usiu.cafeteria.viewmodels.WalletViewModel;
 
 public class ProfileWalletFragment extends Fragment {
@@ -32,13 +33,16 @@ public class ProfileWalletFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        WalletViewModel walletViewModel =
-                ((MainActivity) requireActivity()).walletViewModel;
+        MainActivity activity = (MainActivity) requireActivity();
+        WalletViewModel walletViewModel = activity.walletViewModel;
+        OrdersViewModel ordersViewModel = activity.ordersViewModel;
 
-        TextView tvName    = view.findViewById(R.id.tv_user_name);
-        TextView tvEmail   = view.findViewById(R.id.tv_user_email);
-        TextView tvBalance = view.findViewById(R.id.tv_wallet_balance);
-        View     tvEmptyTx = view.findViewById(R.id.tv_empty_transactions);
+        TextView tvName         = view.findViewById(R.id.tv_user_name);
+        TextView tvEmail        = view.findViewById(R.id.tv_user_email);
+        TextView tvBalance      = view.findViewById(R.id.tv_wallet_balance);
+        TextView tvTotalOrders  = view.findViewById(R.id.tv_total_orders);
+        TextView tvActiveOrders = view.findViewById(R.id.tv_active_orders);
+        View     tvEmptyTx      = view.findViewById(R.id.tv_empty_transactions);
 
         RecyclerView rv = view.findViewById(R.id.rv_transactions);
         rv.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -47,7 +51,7 @@ public class ProfileWalletFragment extends Fragment {
         rv.setAdapter(adapter);
 
         walletViewModel.getUserName().observe(getViewLifecycleOwner(),
-                name -> tvName.setText(name));
+                name -> tvName.setText(getString(R.string.label_greeting, name)));
 
         walletViewModel.getUserEmail().observe(getViewLifecycleOwner(),
                 email -> tvEmail.setText(email));
@@ -59,6 +63,21 @@ public class ProfileWalletFragment extends Fragment {
             adapter.submitList(list);
             tvEmptyTx.setVisibility(list == null || list.isEmpty()
                     ? View.VISIBLE : View.GONE);
+        });
+
+        ordersViewModel.getMyOrders().observe(getViewLifecycleOwner(), list -> {
+            if (list == null) {
+                tvTotalOrders.setText("0");
+                tvActiveOrders.setText("0");
+                return;
+            }
+            tvTotalOrders.setText(String.valueOf(list.size()));
+            long active = 0;
+            for (com.usiu.cafeteria.models.Order o : list) {
+                String s = o.getStatus();
+                if (!"collected".equals(s) && !"cancelled".equals(s)) active++;
+            }
+            tvActiveOrders.setText(String.valueOf(active));
         });
 
         view.findViewById(R.id.btn_logout).setOnClickListener(v -> {
