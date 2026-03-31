@@ -49,7 +49,7 @@ public class OrdersFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         rvActive  = view.findViewById(R.id.rv_active);
         rvHistory = view.findViewById(R.id.rv_history);
-        tvEmpty   = view.findViewById(R.id.tv_empty_orders);
+        tvEmpty   = view.findViewById(R.id.layout_empty_orders);
 
         activeAdapter  = new OrdersAdapter(this::onCancelOrder);
         historyAdapter = new OrdersAdapter(this::onCancelOrder);

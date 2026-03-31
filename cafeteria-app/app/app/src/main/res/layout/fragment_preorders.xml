@@ -6,23 +6,72 @@
     android:layout_height="match_parent"
     android:background="@color/background">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_preorders"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="8dp"
-        android:paddingBottom="80dp"
-        android:clipToPadding="false" />
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tv_empty_preorders"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/empty_preorders"
-        android:textAppearance="?attr/textAppearanceBodyLarge"
-        android:textColor="@android:color/darker_gray"
-        android:visibility="gone" />
+        <!-- Navy header -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/navy"
+            android:gravity="center_vertical"
+            android:paddingStart="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pre-orders"
+                android:textAppearance="?attr/textAppearanceTitleLarge"
+                android:textColor="@color/on_primary"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_preorders"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="8dp"
+                android:paddingBottom="80dp"
+                android:clipToPadding="false" />
+
+            <LinearLayout
+                android:id="@+id/layout_empty_preorders"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/tv_empty_preorders"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/empty_preorders"
+                    android:textAppearance="?attr/textAppearanceBodyLarge"
+                    android:textColor="@android:color/darker_gray" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Schedule a meal in advance using the + button"
+                    android:textAppearance="?attr/textAppearanceBodySmall"
+                    android:textColor="@android:color/darker_gray" />
+
+            </LinearLayout>
+
+        </FrameLayout>
+
+    </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_new_preorder"
@@ -31,6 +80,7 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
         android:contentDescription="@string/btn_new_preorder"
+        app:backgroundTint="@color/navy"
         app:srcCompat="@android:drawable/ic_input_add"
         app:tint="@color/on_primary" />
 

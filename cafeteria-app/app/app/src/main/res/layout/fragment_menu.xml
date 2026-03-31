@@ -6,6 +6,24 @@
     android:background="@color/background"
     android:orientation="vertical">
 
+    <!-- Navy header -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/navy"
+        android:gravity="center_vertical"
+        android:paddingStart="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Menu"
+            android:textAppearance="?attr/textAppearanceTitleLarge"
+            android:textColor="@color/on_primary"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
     <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -78,6 +96,14 @@
                 android:layout_height="wrap_content"
                 android:text="@string/empty_menu"
                 android:textAppearance="?attr/textAppearanceBodyLarge"
+                android:textColor="@android:color/darker_gray" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Check back later or try a different filter"
+                android:textAppearance="?attr/textAppearanceBodySmall"
                 android:textColor="@android:color/darker_gray" />
 
         </LinearLayout>

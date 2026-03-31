@@ -6,13 +6,32 @@
     android:background="@color/background"
     android:orientation="vertical">
 
+    <!-- Navy header -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/navy"
+        android:gravity="center_vertical"
+        android:paddingStart="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Orders"
+            android:textAppearance="?attr/textAppearanceTitleLarge"
+            android:textColor="@color/on_primary"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:tabIndicatorColor="@color/navy"
-        app:tabSelectedTextColor="@color/navy"
-        app:tabTextColor="@android:color/darker_gray">
+        app:tabBackground="@color/navy"
+        app:tabIndicatorColor="@color/gold"
+        app:tabSelectedTextColor="@color/on_primary"
+        app:tabTextColor="@color/gold">
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
@@ -110,15 +129,32 @@
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/tv_empty_orders"
+            <LinearLayout
+                android:id="@+id/layout_empty_orders"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/empty_orders"
-                android:textAppearance="?attr/textAppearanceBodyLarge"
-                android:textColor="@android:color/darker_gray"
-                android:visibility="gone" />
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/tv_empty_orders"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/empty_orders"
+                    android:textAppearance="?attr/textAppearanceBodyLarge"
+                    android:textColor="@android:color/darker_gray" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Orders you place will appear here"
+                    android:textAppearance="?attr/textAppearanceBodySmall"
+                    android:textColor="@android:color/darker_gray" />
+
+            </LinearLayout>
 
         </FrameLayout>
 

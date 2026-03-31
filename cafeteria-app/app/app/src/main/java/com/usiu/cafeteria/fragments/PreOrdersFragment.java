@@ -45,7 +45,7 @@ public class PreOrdersFragment extends Fragment {
         adapter = new PreOrdersAdapter(this::showCancelDialog);
         rv.setAdapter(adapter);
 
-        View tvEmpty = view.findViewById(R.id.tv_empty_preorders);
+        View tvEmpty = view.findViewById(R.id.layout_empty_preorders);
 
         preOrdersViewModel = new ViewModelProvider(this).get(PreOrdersViewModel.class);
         preOrdersViewModel.getMyPreOrders().observe(getViewLifecycleOwner(), list -> {
