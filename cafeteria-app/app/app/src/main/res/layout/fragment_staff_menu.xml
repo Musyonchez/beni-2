@@ -10,6 +10,24 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <!-- Navy header -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/navy"
+            android:gravity="center_vertical"
+            android:paddingStart="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Manage Menu"
+                android:textAppearance="?attr/textAppearanceTitleLarge"
+                android:textColor="@color/on_primary"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -69,19 +87,35 @@
                 android:padding="8dp"
                 android:clipToPadding="false" />
 
-            <TextView
-                android:id="@+id/tv_empty_staff_menu"
+            <LinearLayout
+                android:id="@+id/layout_empty_staff_menu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="@string/empty_menu"
-                android:textAppearance="?attr/textAppearanceBodyLarge"
-                android:textColor="@android:color/darker_gray"
-                android:visibility="gone" />
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/tv_empty_staff_menu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/empty_menu"
+                    android:textAppearance="?attr/textAppearanceBodyLarge"
+                    android:textColor="@android:color/darker_gray" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Add items using the edit button"
+                    android:textAppearance="?attr/textAppearanceBodySmall"
+                    android:textColor="@android:color/darker_gray" />
+
+            </LinearLayout>
 
         </FrameLayout>
 
     </LinearLayout>
-
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

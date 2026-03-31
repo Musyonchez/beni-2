@@ -34,7 +34,7 @@ public class StaffOrdersFragment extends Fragment {
         RecyclerView rv = view.findViewById(R.id.rv_staff_orders);
         rv.setLayoutManager(new LinearLayoutManager(requireContext()));
 
-        View tvEmpty = view.findViewById(R.id.tv_empty_staff_orders);
+        View tvEmpty = view.findViewById(R.id.layout_empty_staff_orders);
 
         StaffOrdersAdapter adapter = new StaffOrdersAdapter(new StaffOrdersAdapter.OrderActionCallback() {
             @Override

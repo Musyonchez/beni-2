@@ -1,24 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background">
+    android:background="@color/background"
+    android:orientation="vertical">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_staff_orders"
+    <!-- Navy header -->
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="8dp"
-        android:clipToPadding="false" />
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/navy"
+        android:gravity="center_vertical"
+        android:paddingStart="16dp">
 
-    <TextView
-        android:id="@+id/tv_empty_staff_orders"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/empty_orders"
-        android:textAppearance="?attr/textAppearanceBodyLarge"
-        android:textColor="@android:color/darker_gray"
-        android:visibility="gone" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Incoming Orders"
+            android:textAppearance="?attr/textAppearanceTitleLarge"
+            android:textColor="@color/on_primary"
+            android:textStyle="bold" />
 
-</FrameLayout>
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_staff_orders"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="8dp"
+            android:clipToPadding="false" />
+
+        <LinearLayout
+            android:id="@+id/layout_empty_staff_orders"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/tv_empty_staff_orders"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/empty_orders"
+                android:textAppearance="?attr/textAppearanceBodyLarge"
+                android:textColor="@android:color/darker_gray" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="New orders from students will appear here"
+                android:textAppearance="?attr/textAppearanceBodySmall"
+                android:textColor="@android:color/darker_gray" />
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+</LinearLayout>

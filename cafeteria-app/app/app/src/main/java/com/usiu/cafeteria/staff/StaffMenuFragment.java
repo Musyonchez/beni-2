@@ -41,7 +41,7 @@ public class StaffMenuFragment extends Fragment {
         RecyclerView rv = view.findViewById(R.id.rv_staff_menu);
         rv.setLayoutManager(new LinearLayoutManager(requireContext()));
 
-        View tvEmpty = view.findViewById(R.id.tv_empty_staff_menu);
+        View tvEmpty = view.findViewById(R.id.layout_empty_staff_menu);
 
         adapter = new StaffMenuAdapter((itemId, available) ->
                 FirestoreRepository.getInstance()
@@ -70,7 +70,7 @@ public class StaffMenuFragment extends Fragment {
 
     private void applyFilter() {
         List<MenuItem> all = menuViewModel.getMenuItems().getValue();
-        View tvEmpty = getView() != null ? getView().findViewById(R.id.tv_empty_staff_menu) : null;
+        View tvEmpty = getView() != null ? getView().findViewById(R.id.layout_empty_staff_menu) : null;
         if (all != null) applyFilter(all, tvEmpty);
     }
 
