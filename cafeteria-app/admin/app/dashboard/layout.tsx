@@ -12,6 +12,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   }
 
   const links = [
+    { href: "/dashboard",        label: "Dashboard", exact: true },
     { href: "/dashboard/menu",   label: "Menu" },
     { href: "/dashboard/orders", label: "Orders" },
     { href: "/dashboard/users",  label: "Users" },
@@ -25,19 +26,20 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           <p className="text-xs opacity-60">Admin</p>
         </div>
         <nav className="flex-1 px-2 py-4 space-y-1">
-          {links.map(l => (
-            <Link
-              key={l.href} href={l.href}
-              className={`block px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                pathname.startsWith(l.href)
-                  ? "text-white"
-                  : "opacity-70 hover:opacity-100"
-              }`}
-              style={pathname.startsWith(l.href) ? { backgroundColor: "#CFB991", color: "#002147" } : {}}
-            >
-              {l.label}
-            </Link>
-          ))}
+          {links.map(l => {
+            const active = l.exact ? pathname === l.href : pathname.startsWith(l.href);
+            return (
+              <Link
+                key={l.href} href={l.href}
+                className={`block px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                  active ? "text-white" : "opacity-70 hover:opacity-100"
+                }`}
+                style={active ? { backgroundColor: "#CFB991", color: "#002147" } : {}}
+              >
+                {l.label}
+              </Link>
+            );
+          })}
         </nav>
         <button
           onClick={logout}
