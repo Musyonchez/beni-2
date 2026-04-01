@@ -27,7 +27,7 @@ export default function LoginPage() {
       if (snap.data()?.firstLogin) {
         router.push("/change-password");
       } else {
-        router.push("/dashboard/menu");
+        router.push("/dashboard");
       }
     } catch {
       setError("Invalid email or password.");

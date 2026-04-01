@@ -24,7 +24,7 @@ export default function ChangePasswordPage() {
       if (!user) { router.push("/login"); return; }
       await updatePassword(user, newPassword);
       await updateDoc(doc(db, "users", user.uid), { firstLogin: false });
-      router.push("/dashboard/menu");
+      router.push("/dashboard");
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : "Failed to update password.");
     } finally {
